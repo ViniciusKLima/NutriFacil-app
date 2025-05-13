@@ -30,10 +30,20 @@
   </ion-item>
 
   <div class="historico-wrapper">
-    <h6>Histórico de consumo</h6>
-    <div *ngFor="let item of historico" class="historico-item">
-      <p><ion-icon name="time-outline"></ion-icon>{{item.hora}}</p>
+  <h6 class="header-historico">
+    Histórico de consumo
+    <ion-button fill="clear" style="color: green;" size="small" (click)="ativarEdicao()">
+      {{ editando ? 'Concluir' : 'Editar' }}
+    </ion-button>
+  </h6>
+  <div *ngFor="let item of historico; let i = index" class="historico-item">
+    <p><ion-icon name="time-outline"></ion-icon>{{item.hora}}</p>
+    <div class="div-delete-aparece">
       <p>+{{ item.valor }} ml</p>
+      <ion-button *ngIf="editando" color="danger" fill="clear" size="small" (click)="removerRegistro(i)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
     </div>
   </div>
+</div>
 </ion-content>

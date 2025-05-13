@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { DietaService } from '../services/dieta.service';
 import * as ProgressBar from 'progressbar.js';
 
@@ -8,7 +8,7 @@ import * as ProgressBar from 'progressbar.js';
   styleUrls: ['tab1.page.scss'],
   standalone: false,
 })
-export class Tab1Page implements AfterViewInit {
+export class Tab1Page implements AfterViewInit, OnInit {
   @ViewChild('progressBar', { static: true }) progressBarElement!: ElementRef;
   private bar: any;
   dataAtual: string = '';
@@ -20,37 +20,62 @@ export class Tab1Page implements AfterViewInit {
 
   refeicoes: { nome: string; descricao: string; checked: boolean }[] = [];
 
-  // ...existing code...
-constructor(private dietaService: DietaService) {
-  this.dietaService.dietaSelecionada$.subscribe((dieta) => {
-    this.refeicoes = dieta.refeicoes;
-    this.atualizarProgresso();
-  });
+  constructor(private dietaService: DietaService) {
+    this.dietaService.dietaSelecionada$.subscribe((dieta) => {
+      // Lógica para resetar os checks se mudou o dia
+      const dataSalva = localStorage.getItem('refeicoesCheckData');
+      const hoje = new Date().toDateString();
 
-  const hoje = new Date();
-  let data = hoje.toLocaleDateString('pt-BR', {
-    weekday: 'short',
-    day: '2-digit',
-    month: 'long',
-  });
+      if (dataSalva === hoje) {
+        const checksSalvos = localStorage.getItem('refeicoesCheck');
+        if (checksSalvos) {
+          const refeicoesSalvas = JSON.parse(checksSalvos);
+          this.refeicoes = dieta.refeicoes.map((ref, idx) => ({
+            ...ref,
+            checked: refeicoesSalvas[idx]?.checked ?? false
+          }));
+        } else {
+          this.refeicoes = dieta.refeicoes.map(ref => ({
+            ...ref,
+            checked: false
+          }));
+        }
+      } else {
+        // Se for um novo dia, reseta todos os checks
+        this.refeicoes = dieta.refeicoes.map(ref => ({
+          ...ref,
+          checked: false
+        }));
+        this.salvarChecks(); // já salva o reset para o novo dia
+      }
+      this.atualizarProgresso();
+    });
 
-  // Remove o ponto após o dia da semana (ex: "qui, 16 de julho")
-  data = data.replace('.', '');
+    const hoje = new Date();
+    let data = hoje.toLocaleDateString('pt-BR', {
+      weekday: 'short',
+      day: '2-digit',
+      month: 'long',
+    });
 
-  // Coloca a primeira letra do dia da semana e do mês em maiúsculo
-  data = data.replace(/^([a-zá-úç]+), (\d{2}) de ([a-zá-úç]+)/i, (match, dia, numero, mes) => {
-    return (
-      dia.charAt(0).toUpperCase() + dia.slice(1) +
-      ', ' +
-      numero +
-      ' de ' +
-      mes.charAt(0).toUpperCase() + mes.slice(1)
-    );
-  });
+    // Remove o ponto após o dia da semana (ex: "qui, 16 de julho")
+    data = data.replace('.', '');
 
-  this.dataAtual = data;
-}
-// ...existing code...
+    // Coloca a primeira letra do dia da semana e do mês em maiúsculo
+    data = data.replace(/^([a-zá-úç]+), (\d{2}) de ([a-zá-úç]+)/i, (match, dia, numero, mes) => {
+      return (
+        dia.charAt(0).toUpperCase() + dia.slice(1) +
+        ', ' +
+        numero +
+        ' de ' +
+        mes.charAt(0).toUpperCase() + mes.slice(1)
+      );
+    });
+
+    this.dataAtual = data;
+  }
+
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
     this.bar = new ProgressBar.Circle(this.progressBarElement.nativeElement, {
@@ -73,7 +98,13 @@ constructor(private dietaService: DietaService) {
     }
   }
 
+  salvarChecks() {
+    localStorage.setItem('refeicoesCheck', JSON.stringify(this.refeicoes));
+    localStorage.setItem('refeicoesCheckData', new Date().toDateString());
+  }
+
   onCheckChange() {
     this.atualizarProgresso();
+    this.salvarChecks();
   }
 }
