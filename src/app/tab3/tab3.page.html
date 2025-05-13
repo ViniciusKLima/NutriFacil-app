@@ -3,7 +3,11 @@
 </ion-header>
 <ion-content [fullscreen]="true">
   <div class="botoes-dieta">
-    <div class="dieta-item" *ngFor="let dieta of dietas; let i = index" [class.dieta-selecionada]="i === dietaSelecionada">
+    <div
+      class="dieta-item"
+      *ngFor="let dieta of dietas; let i = index"
+      [class.dieta-selecionada]="i === dietaSelecionada"
+    >
       <img class="dieta-img" [src]="dieta.imagem" alt="Dieta" />
 
       <div class="dieta">
@@ -18,6 +22,10 @@
       >
         {{ i === dietaSelecionada ? 'Selecionado' : 'Selecionar' }}
       </button>
+    </div>
+    <div class="linha-gradient"></div>
+    <div class="em-breve">
+      <h5>Em breve, novas dietas personalizadas estarão disponíveis! <ion-icon name="hourglass"></ion-icon></h5>
     </div>
   </div>
 </ion-content>
