@@ -1,0 +1,21 @@
+ion-tab-bar {
+    --background: linear-gradient(135deg, #34A853 55%, var(--ion-color-primary-shade));
+  }
+  
+  ion-tab-button {
+    --color: rgb(190, 238, 186);
+    --background: transparent;
+    --border: none;
+  }
+  
+  ion-tab-button[aria-selected="true"] {
+    --color: white;
+    --background: transparent;
+    transform: scale(1.1);
+  }
+  
+  ion-tab-button:hover {
+    --color: white;
+    --background: transparent;
+  }
+  

@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-title> Escolher Dieta </ion-title>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="botoes-dieta">
+    <div class="dieta-item" *ngFor="let dieta of dietas; let i = index" [class.dieta-selecionada]="i === dietaSelecionada">
+      <img class="dieta-img" [src]="dieta.imagem" alt="Dieta" />
+
+      <div class="dieta">
+        <span class="dieta-nome">{{ dieta.nome }}</span>
+        <p class="dieta-descricao">{{ dieta.descricao }}</p>
+      </div>
+
+      <button
+        class="dieta-btn"
+        [class.selecionado]="i === dietaSelecionada"
+        (click)="selecionarDieta(i)"
+      >
+        {{ i === dietaSelecionada ? 'Selecionado' : 'Selecionar' }}
+      </button>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="nav">
+      <div class="div-aguaAtual AI">
+        <p class="p-atual">Consumido</p>
+        <h6 class="litroAtual">
+          {{ progressoAtual / 1000 | number:'1.0-1' }}L
+        </h6>
+      </div>
+      <div class="circulo">
+        <div id="progressCircle" class="icon-base"></div>
+        <ion-icon name="pint" class="icone-topo"></ion-icon>
+      </div>
+      <div class="div-aguaIdeal AI">
+        <p class="p-ideal">Meta do Dia</p>
+        <h6 class="litroIdeal">{{ meta / 1000 }}L</h6>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item class="ion-padding-horizontal">
+    <ion-input mode="ios"
+      [(ngModel)]="valorAdicionar"
+      type="number"
+      placeholder="Digite a quantidade (ml)"
+    ></ion-input>
+    <ion-button (click)="adicionarValor()">Adicionar</ion-button>
+  </ion-item>
+
+  <div class="historico-wrapper">
+    <h6>Histórico de consumo</h6>
+    <div *ngFor="let item of historico" class="historico-item">
+      <p><ion-icon name="time-outline"></ion-icon>{{item.hora}}</p>
+      <p>+{{ item.valor }} ml</p>
+    </div>
+  </div>
+</ion-content>

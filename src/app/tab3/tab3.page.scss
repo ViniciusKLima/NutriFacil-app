@@ -1,0 +1,90 @@
+ion-header{
+  display: flex;
+  text-align: center;
+  height: 10vh;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  color: #34a853;
+
+  ion-title{
+    font-weight: 700;
+    color: #34a853;
+  }
+}
+
+.dieta-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  gap: 16px;
+  transition: box-shadow 0.2s;
+}
+
+.dieta-item:hover {
+  box-shadow: 0 4px 16px rgba(52, 168, 83, 0.18);
+}
+
+.dieta-img {
+  width: 120px;
+  height: 130px;
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background: #f4f4f4;
+}
+
+.dieta{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  object-fit: cover;
+}
+
+.dieta-nome {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #535353;
+  font-family: 'Nunito', sans-serif;
+}
+
+.dieta-descricao {
+  font-size: 0.8rem;
+  color: #888;
+  margin: 4px 0 0 0;
+  font-family: 'Nunito', sans-serif;
+}
+
+.dieta-btn {
+  min-width: 120px;
+  padding: 14px 13px;
+  border-radius: 8px;
+  border: 2px solid #34a853;
+  background: #34a853;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px #34a8533a;
+}
+
+.dieta-btn.selecionado {
+  background: #fff;
+  color: #3eb85f;
+  border: 2px solid #34a853;
+  box-shadow: inset 0 2.5px 4px #1c362367;
+  padding-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.botoes-dieta{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-inline: 20px;
+}

@@ -1,0 +1,14 @@
+{
+  "usuarios": [
+    {
+      "id": "a6ed",
+      "nome": "Meu",
+      "email": "rei@gmail.com",
+      "senha": "123456",
+      "altura": 180,
+      "pesoIdeal": 90,
+      "pesoAtual": 120,
+      "metaDieta": "perder peso"
+    }
+  ]
+}

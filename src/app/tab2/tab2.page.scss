@@ -1,0 +1,95 @@
+ion-toolbar {
+  height: 100%;
+  display: flex;
+  color: white;
+  padding: 20px;
+  position: relative;
+}
+
+.nav {
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  padding-inline: 15px;
+  font-family: "Nunito", sans-serif;
+}
+
+.litroAtual,
+.litroIdeal {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+
+.AI {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  overflow: hidden;
+
+  h6 {
+    margin: 0;
+  }
+}
+
+.circulo {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  display: flex;
+
+  .icone-topo {
+    position: absolute;
+    font-size: 70px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+ion-content {
+  --padding-top: 60px;
+  --padding-start: 35px;
+  --padding-end: 35px;
+
+  ion-item {
+    --background: transparent;
+    --inner-padding-end: 0px;
+    --inner-padding-start: 0px;
+    color: #3d3d3d;
+
+    ion-button {
+      --ion-color-primary: #34a853;
+    }
+  }
+}
+
+ion-input {
+  font-family: "Nunito", sans-serif;
+  color: #3f3f3f;
+}
+
+.historico-wrapper {
+  margin-top: 30px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+
+  h6 {
+    color: #686868;
+  }
+}
+
+.historico-item {
+  background: #f0f0f0;
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #686868;
+}

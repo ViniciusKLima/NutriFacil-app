@@ -1,0 +1,7 @@
+{
+  "name": "NutriFácil",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

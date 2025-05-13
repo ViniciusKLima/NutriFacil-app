@@ -1,0 +1,89 @@
+ion-header {
+  --background: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+::ng-deep ion-header {
+  --background: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+ion-toolbar {
+  height: 100%;
+  color: white;
+  text-align: center;
+  display: flex;
+}
+
+img {
+  width: 250px;
+}
+
+ion-content {
+  --padding-top: 15px;
+  --padding-start: 35px;
+  --padding-end: 35px;
+}
+
+ion-item {
+  margin-bottom: 10px;
+  --background: transparent;
+  --border-width: 0;
+  --inner-padding-end: 0;
+  --background-hover: transparent;
+  --background-activated: transparent;
+  --background-focused: transparent;
+  --ripple-color: transparent;
+}
+
+.meu-label {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+ion-toggle {
+  --ion-color-primary: #34a853;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  color: #535353;
+}
+
+h2{
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  color: #535353;
+}
+
+.tt-config {
+  text-align: center;
+  color: green;
+}
+
+h4{
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+}
+
+.sair {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  color: rgb(245, 63, 63);
+  background: transparen;
+  height: 10px;
+  background-color: transparent;
+
+  h2 {
+    font-size: 20px;
+    color: rgb(245, 63, 63);
+  }
+
+  ion-icon {
+    padding-top: 7px;
+    font-size: 20px;
+  }
+}

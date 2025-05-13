@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="nav">
+    <div class="data">{{dataAtual}}</div>
+
+    <div class="div-pesoAtual">
+      <p class="p-atual">Peso Atual</p>
+      <div class="div-pesoA">
+        <h6 class="pesoAtual">{{ pesoAtual }}</h6>
+        <p class="kg-atual">Kg</p>
+      </div>
+    </div>
+
+    <div class="circulo">
+      <div #progressBar class="icone-base" style="width: 70%; height: 70%; margin: auto;"></div>
+      <ion-icon name="restaurant" class="icone-topo"></ion-icon>
+    </div>
+    <div class="div-imc">
+      <h6 class="imc">IMC</h6>
+      <p class="imc-valor">{{ (valorIMC).toFixed(1) }}</p>
+    </div>
+
+    <div class="div-pesoIdeal">
+      <p class="p-ideal">Peso ideal</p>
+      <div class="div-pesoI">
+        <h6 class="pesoIdeal">{{ pesoIdeal }}</h6>
+        <p class="kg-ideal">Kg</p>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="refeicoes-content" [fullscreen]="true">
+  <div class="refeicoes-list">
+    <div *ngFor="let refeicao of refeicoes; let i = index"
+         [class.checked]="refeicao.checked"
+         class="refeicao-item">
+      <ion-item lines="none" detail="false" button="false">
+        <ion-label class="meu-label">
+          <h2>{{ refeicao.nome }}</h2>
+          <p>{{ refeicao.descricao }}</p>
+        </ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="refeicao.checked" (ionChange)="onCheckChange()"></ion-checkbox>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>
+
+
+
+
