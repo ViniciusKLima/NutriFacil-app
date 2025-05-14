@@ -34,12 +34,17 @@
 </ion-header>
 
 <ion-content class="refeicoes-content" [fullscreen]="true">
-  <div class="div-interativa">
+  <div
+    class="div-interativa"
+    [ngStyle]="{'background': divInterativa.gradient}"
+  >
     <div class="tt-interativo">
-      <h4 class="header-agua">Olá, guerreiro da nutrição!</h4>
-      <p class="sub-header-agua">Vamos conquistar seus objetivos juntos?</p>
+      <h4 class="header-agua">{{ divInterativa.titulo }}</h4>
+      <p class="sub-header-agua">{{ divInterativa.paragrafo }}</p>
     </div>
-    <div class="div-mascote"><img src="../../assets/imagens/mascote/brocolito-chat.png" alt=""></div>
+    <div class="div-mascote">
+      <img [src]="divInterativa.imagem" alt="" />
+    </div>
   </div>
   <div class="refeicoes-list">
     <div
