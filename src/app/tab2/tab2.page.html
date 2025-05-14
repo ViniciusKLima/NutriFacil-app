@@ -20,7 +20,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-item class="ion-padding-horizontal">
+  <ion-item>
     <ion-input mode="ios"
       [(ngModel)]="valorAdicionar"
       type="number"
@@ -32,7 +32,7 @@
   <div class="historico-wrapper">
   <h6 class="header-historico">
     Histórico de consumo
-    <ion-button fill="clear" style="color: green;" size="small" (click)="ativarEdicao()">
+    <ion-button fill="clear" style="color: green;" (click)="ativarEdicao()">
       {{ editando ? 'Concluir' : 'Editar' }}
     </ion-button>
   </h6>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from '../services/notification.service';
+import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
 
 @Component({
   selector: 'app-tab4',
@@ -8,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tab4Page implements OnInit {
   darkModeAtivo = false;
+  notificacoesAtivas = true;
+
+  constructor(
+    private notificationService: NotificationService,
+    private localNotifications: LocalNotifications
+  ) {}
 
   ngOnInit() {
-    // Recupera a preferência salva ao abrir a página
     this.darkModeAtivo = localStorage.getItem('darkMode') === 'true';
     document.body.classList.toggle('dark', this.darkModeAtivo);
   }
@@ -19,5 +26,32 @@ export class Tab4Page implements OnInit {
     this.darkModeAtivo = event.detail.checked;
     document.body.classList.toggle('dark', this.darkModeAtivo);
     localStorage.setItem('darkMode', this.darkModeAtivo ? 'true' : 'false');
+  }
+
+  toggleNotificacoes() {
+    if (this.notificacoesAtivas) {
+      this.localNotifications.hasPermission().then((permissao) => {
+        if (permissao) {
+          this.notificationService.agendarNotificacoes();
+        } else {
+          this.pedirPermissao();
+        }
+      });
+    } else {
+      this.localNotifications.cancelAll();
+    }
+  }
+
+  pedirPermissao() {
+    this.localNotifications.requestPermission().then((granted) => {
+      if (granted) {
+        this.notificationService.agendarNotificacoes();
+        // Notificação de boas-vindas apenas no primeiro acesso
+        if (!localStorage.getItem('boasVindasEnviada')) {
+          this.notificationService.enviarBoasVindas();
+          localStorage.setItem('boasVindasEnviada', 'true');
+        }
+      }
+    });
   }
 }

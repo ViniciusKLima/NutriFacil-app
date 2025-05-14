@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <img src="../../assets/imagens/logo-nutri-removebg-preview.png" />
+    <img src="../../assets/imagens/logo-nutrifacil.png" />
   </ion-toolbar>
 </ion-header>
 
@@ -17,7 +17,7 @@
 
   <ion-item>
     <ion-label class="meu-label">
-      <ion-toggle mode="ios">Notificações</ion-toggle>
+      <ion-toggle mode="ios" [(ngModel)]="notificacoesAtivas" (ionChange)="toggleNotificacoes()">Notificações</ion-toggle>
     </ion-label>
   </ion-item>
 

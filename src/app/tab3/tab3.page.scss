@@ -9,11 +9,13 @@ ion-header {
   ion-title {
     font-weight: 700;
     color: #34a853;
+    font-size: 1rem;
   }
 }
 
 ion-content {
   --padding-bottom: 50px;
+  --padding-top: 30px;
 }
 
 .dieta-item {
@@ -23,8 +25,9 @@ ion-content {
   border-radius: 14px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
   padding: 10px;
-  gap: 16px;
+  gap: 1rem;
   transition: box-shadow 0.2s;
+  max-height: 200px;
 }
 
 .dieta-item:hover {
@@ -52,18 +55,27 @@ ion-content {
   justify-content: start;
   object-fit: cover;
   margin: auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; // rolagem suave em iOS
+
+  &::-webkit-scrollbar {
+    display: none; // oculta a barra no Chrome/Safari
+  }
+
+  scrollbar-width: none; // oculta a barra no Firefox
 }
 
 .dieta-nome {
   flex: 1;
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #535353;
   font-family: "Nunito", sans-serif;
+  margin: 0;
 }
 
 .dieta-descricao {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #888;
   margin: 4px 0 0 0;
   font-family: "Nunito", sans-serif;
@@ -124,14 +136,19 @@ ion-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 130px;
+  height: 120px;
   padding-inline: 60px;
+
+  h5{
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 450px) {
   .dieta-item {
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
   }
 
   .dieta-btn {

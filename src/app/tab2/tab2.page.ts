@@ -91,4 +91,5 @@ export class Tab2Page implements AfterViewInit {
     localStorage.setItem('aguaProgressoAtual', this.progressoAtual.toString());
     localStorage.setItem('aguaHistoricoData', new Date().toDateString());
   }
+  
 }

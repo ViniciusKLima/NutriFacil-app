@@ -177,10 +177,10 @@ export class Tab1Page implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     this.bar = new ProgressBar.Circle(this.progressBarElement.nativeElement, {
-      strokeWidth: 8,
+      strokeWidth: 6,
       color: 'white',
       trailColor: '#2f974b',
-      trailWidth: 8,
+      trailWidth: 6,
       duration: 1400,
       easing: 'easeInOut',
     });

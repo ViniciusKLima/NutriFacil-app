@@ -11,8 +11,6 @@ ion-toolbar {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 100%;
-  padding-inline: 15px;
   font-family: "Nunito", sans-serif;
 }
 
@@ -25,9 +23,9 @@ ion-toolbar {
 
 .AI {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin: 0;
   overflow: hidden;
 
   h6 {
@@ -37,14 +35,14 @@ ion-toolbar {
 
 .circulo {
   position: relative;
-  width: 180px;
-  height: 180px;
+  width: 40%;
+  height: auto;
   border-radius: 50%;
   display: flex;
 
   .icone-topo {
     position: absolute;
-    font-size: 70px;
+    font-size: 50px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -70,7 +68,8 @@ ion-content {
 
 ion-input {
   font-family: "Nunito", sans-serif;
-  color: #3f3f3f;
+  color: #686767;
+  font-size: 1rem;
 }
 
 .historico-wrapper {
@@ -80,6 +79,7 @@ ion-input {
 
   h6 {
     color: #686868;
+    font-size: 1rem;
   }
 }
 
@@ -92,6 +92,14 @@ ion-input {
   justify-content: space-between;
   align-items: center;
   color: #686868;
+  max-height: 32px;
+
+  p{
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 0.8rem;
+  }
 }
 
 .header-historico {
@@ -101,8 +109,40 @@ ion-input {
   margin-bottom: 10px;
 }
 
-.div-delete-aparece{
+.div-delete-aparece {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 500px) {
+  .AI {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: hidden;
+
+    h6 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+      text-align: center;
+    }
+  }
+
+  .circulo {
+    height: auto;
+
+    .icone-topo {
+      position: absolute;
+      font-size: 70px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 }
