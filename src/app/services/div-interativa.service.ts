@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DivInterativaService {
   private horarios = [
@@ -73,14 +73,18 @@ export class DivInterativaService {
       let inicioTimestamp = inicio ? Number(inicio) : null;
       if (!inicioTimestamp) {
         inicioTimestamp = Date.now();
-        localStorage.setItem('primeiroAcessoInicio', inicioTimestamp.toString());
+        localStorage.setItem(
+          'primeiroAcessoInicio',
+          inicioTimestamp.toString()
+        );
       }
       const agora = Date.now();
       const duasHoras = 2 * 60 * 60 * 1000;
       if (agora - inicioTimestamp < duasHoras) {
         return {
           titulo: `Olá, ${perfil.nome}! Seja bem-vindo(a) 👋`,
-          paragrafo: 'Sou o Brócolito e estou aqui para ser seu parceiro na busca por hábitos mais saudáveis!',
+          paragrafo:
+            'Sou o Brócolito e estou aqui para ser seu parceiro na busca por hábitos mais saudáveis!',
           imagem: 'assets/imagens/brocolito/brocolito-1.png',
           gradient: 'linear-gradient(to right, #2D8FFF, #A3E3FF)',
         };
