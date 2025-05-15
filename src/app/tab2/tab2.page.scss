@@ -1,9 +1,14 @@
 ion-toolbar {
+  padding-top: 5%;
   height: 100%;
   display: flex;
   color: white;
   padding: 20px;
   position: relative;
+}
+
+ion-content {
+  --padding-bottom: 40px;
 }
 
 .nav {
@@ -92,7 +97,8 @@ ion-input {
   justify-content: space-between;
   align-items: center;
   color: #686868;
-  max-height: 32px;
+  height: 40px;
+  max-height: 40px;
 
   p{
     display: flex;

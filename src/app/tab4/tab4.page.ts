@@ -12,10 +12,22 @@ export class Tab4Page implements OnInit {
   darkModeAtivo = false;
   notificacoesAtivas = true;
 
+  // Variáveis do formulário de perfil
+  mostrarFormulario = false;
+  nome: string = '';
+  peso: number | null = null;
+  altura: number | null = null;
+
   constructor(
     private notificationService: NotificationService,
     private localNotifications: LocalNotifications
-  ) {}
+  ) {
+    // Carrega dados do perfil ao abrir a página
+    const perfil = JSON.parse(localStorage.getItem('perfil') || '{}');
+    this.nome = perfil.nome || '';
+    this.peso = perfil.peso || null;
+    this.altura = perfil.altura || null;
+  }
 
   ngOnInit() {
     this.darkModeAtivo = localStorage.getItem('darkMode') === 'true';
@@ -53,5 +65,15 @@ export class Tab4Page implements OnInit {
         }
       }
     });
+  }
+
+  // Salva os dados do perfil no localStorage e fecha o formulário
+  salvarPerfil() {
+    localStorage.setItem('perfil', JSON.stringify({
+      nome: this.nome,
+      peso: this.peso,
+      altura: this.altura
+    }));
+    this.mostrarFormulario = false;
   }
 }

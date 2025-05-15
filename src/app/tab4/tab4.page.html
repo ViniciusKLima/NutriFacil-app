@@ -8,22 +8,30 @@
   <div class="tt-config">
     <h4>Configurações</h4>
   </div>
-  <ion-item>
+  <ion-item [routerLink]="['/tabs/perfil']" button>
     <ion-label class="meu-label">
       <h2 class="tt-alterar">Alterar Dados da Conta</h2>
-      <ion-icon class="tt-alterar" name="chevron-forward-outline"></ion-icon>
+    </ion-label>
+    <ion-icon name="chevron-forward-outline"></ion-icon>
+  </ion-item>
+
+  <ion-item>
+    <ion-label class="meu-label">
+      <ion-toggle
+        mode="ios"
+        [(ngModel)]="notificacoesAtivas"
+        (ionChange)="toggleNotificacoes()"
+        >Notificações</ion-toggle
+      >
     </ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label class="meu-label">
-      <ion-toggle mode="ios" [(ngModel)]="notificacoesAtivas" (ionChange)="toggleNotificacoes()">Notificações</ion-toggle>
-    </ion-label>
-  </ion-item>
-
-  <ion-item>
-    <ion-label class="meu-label">
-      <ion-toggle mode="ios" [checked]="darkModeAtivo" (ionChange)="toggleDarkMode($event)"
+      <ion-toggle
+        mode="ios"
+        [checked]="darkModeAtivo"
+        (ionChange)="toggleDarkMode($event)"
         >Modo Noturno</ion-toggle
       >
     </ion-label>

@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar Perfil</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab4"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="salvarPerfil()">
+    <!-- Exemplo para perfil.page.html -->
+    <ion-item>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input
+        [(ngModel)]="nome"
+        name="nome"
+        [placeholder]="nome || 'Digite seu nome'"
+        required
+      >
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Peso (kg)</ion-label>
+      <ion-input
+        type="number"
+        [(ngModel)]="peso"
+        name="peso"
+        [placeholder]="peso !== null ? peso : 'Digite seu peso'"
+        required
+      >
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Altura (cm)</ion-label>
+      <ion-input
+        type="number"
+        [(ngModel)]="altura"
+        name="altura"
+        [placeholder]="altura !== null ? altura : 'Digite sua altura'"
+        required
+      >
+      </ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" class="ion-margin-top"
+      >Salvar</ion-button
+    >
+  </form>
+
+  <div class="imc-resultados" *ngIf="imc !== null">
+    <div class="imc-boxes">
+      <div class="imc-atual">
+        <h6 [ngClass]="getImcClass()">IMC Atual</h6>
+        <p [ngClass]="getImcClass()">{{ imc }}</p>
+      </div>
+      <div class="imc-ideal">
+        <h6>IMC Ideal</h6>
+        <p>{{ imcIdeal }}</p>
+      </div>
+    </div>
+    <div class="imc-classificacao">
+      <p>{{ imcClassificacao }}</p>
+    </div>
+  </div>
+</ion-content>

@@ -95,11 +95,12 @@ ion-content {
 }
 
 ion-header {
-  height: 35%;
+  height: 40%;
   box-shadow: none !important;
 }
 
 ion-toolbar {
+  --padding-top: 5%;
   --background: linear-gradient(
     135deg,
     #34a853 55%,

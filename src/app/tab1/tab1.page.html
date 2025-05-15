@@ -5,7 +5,7 @@
     <div class="div-pesoAtual">
       <p class="p-atual">Peso Atual</p>
       <div class="div-pesoA">
-        <h6 class="pesoAtual">{{ pesoAtual }}</h6>
+        <h6 class="pesoAtual">{{ peso }}</h6>
         <p class="kg-atual">Kg</p>
       </div>
     </div>
@@ -16,13 +16,13 @@
     </div>
     <div class="div-imc">
       <h6 class="imc">IMC</h6>
-      <p class="imc-valor">{{ (valorIMC).toFixed(1) }}</p>
+      <p class="imc-valor">{{ formatarIMC(imc) }}</p>
     </div>
 
     <div class="div-pesoIdeal">
       <p class="p-ideal">Peso ideal</p>
       <div class="div-pesoI">
-        <h6 class="pesoIdeal">{{ pesoIdeal }}</h6>
+        <h6 class="pesoIdeal">{{ pesoIdeal !== null && pesoIdeal !== undefined ? pesoIdeal : '--' }}</h6>
         <p class="kg-ideal">Kg</p>
       </div>
     </div>
