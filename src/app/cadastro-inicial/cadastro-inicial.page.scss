@@ -1,0 +1,122 @@
+.tela-loading {
+  position: fixed;
+  z-index: 9999;
+  background: #34a853;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-pulsando {
+  width: 40%;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+ion-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding-top: 32px;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --padding-bottom: 30px;
+}
+
+.logo-topo {
+  display: block;
+  margin: 0 auto 10px auto;
+  width: 40%;
+  max-width: 60vw;
+}
+
+.brocolito-fala {
+  display: flex;
+  align-items: center;
+
+  .frase-boas-vindas {
+    width: 50vw;
+    text-align: center;
+    color: #34a853;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: "Nunito", sans-serif;
+  }
+
+  .brocolito-img {
+    width: 30vw;
+    max-width: 60vw;
+  }
+}
+
+.formulario-cadastro {
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+form {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  ion-item {
+    width: 100%;
+    --background: transparent;
+    --border-width: 0;
+    --inner-border-width: 0;
+    --inner-padding-end: 0;
+    --padding-end: 20px;
+
+    ion-label {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #34a853 !important;
+      margin-bottom: 0.4rem;
+      margin-left: 8px;
+      font-family: "Nunito", sans-serif;
+    }
+
+    ion-input {
+      width: 100%;
+      --padding-start: 0.5rem;
+      font-size: 1rem;
+      font-family: "Open Sans", sans-serif;
+      color: var(--place-color);
+      border: 2px solid var(--cinza-dark);
+      border-radius: 5px;
+    }
+  }
+}
+
+ion-button {
+  --background: #34a853;
+  --background-hover: #2e9447;
+  --border-radius: 8px;
+  margin-top: 12px;
+  width: 60%;
+}

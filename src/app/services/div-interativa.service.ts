@@ -52,18 +52,46 @@ export class DivInterativaService {
       titulo: 'Se marcar mais uma, eu comemoro...',
       paragrafo: 'Sério mesmo! Já tô preparando o passinho da vitória!',
       imagem: 'assets/imagens/brocolito/brocolito-ansioso.png',
-      gradient: 'linear-gradient(to right, #896EFF, #A3BDFF)',
+      gradient: 'linear-gradient(to right, #8D1C1C, #C04D4D)',
     },
     {
       hora: 23,
       titulo: 'Uau! Todas as refeições concluídas!',
       paragrafo: 'Seu futuro saudável agradece!',
       imagem: 'assets/imagens/brocolito/brocolito-feliz.png',
-      gradient: 'linear-gradient(to right, #8D1C1C, #C04D4D)',
+      gradient: 'linear-gradient(to right, #896EFF, #A3BDFF)',
     },
   ];
 
   getDivInterativaAtual(): any {
+    // Verifica se é o primeiro acesso e se está dentro das 2 primeiras horas
+    const primeiroAcesso = localStorage.getItem('primeiroAcesso');
+    const perfil = JSON.parse(localStorage.getItem('perfil') || '{}');
+    const inicio = localStorage.getItem('primeiroAcessoInicio');
+
+    if (primeiroAcesso && perfil.nome) {
+      let inicioTimestamp = inicio ? Number(inicio) : null;
+      if (!inicioTimestamp) {
+        inicioTimestamp = Date.now();
+        localStorage.setItem('primeiroAcessoInicio', inicioTimestamp.toString());
+      }
+      const agora = Date.now();
+      const duasHoras = 2 * 60 * 60 * 1000;
+      if (agora - inicioTimestamp < duasHoras) {
+        return {
+          titulo: `Olá, ${perfil.nome}! Seja bem-vindo(a) 👋`,
+          paragrafo: 'Sou o Brócolito e estou aqui para ser seu parceiro na busca por hábitos mais saudáveis!',
+          imagem: 'assets/imagens/brocolito/brocolito-1.png',
+          gradient: 'linear-gradient(to right, #2D8FFF, #A3E3FF)',
+        };
+      } else {
+        // Passou das 2 horas, remove o flag
+        localStorage.removeItem('primeiroAcesso');
+        localStorage.removeItem('primeiroAcessoInicio');
+      }
+    }
+
+    // Caso não seja o primeiro acesso ou já tenha passado 2 horas, retorna o padrão
     const agora = new Date();
     const horaAtual = agora.getHours() + agora.getMinutes() / 60;
     let periodo = this.horarios[0];
