@@ -71,7 +71,8 @@
 }
 
 :root {
-  --cinza-dark: #b3b3b3;
+  --cinza-dark: #afafaf;
+  --place-color: #777777;
 }
 
 * {
@@ -88,6 +89,10 @@
   &::part(scroll)::-webkit-scrollbar {
     display: none;
   }
+}
+
+body.page-perfil ion-tab-bar {
+  display: none !important;
 }
 
 ion-content {
@@ -148,4 +153,5 @@ body.dark {
   }
 
   --cinza-dark: #535353;
+  --place-color: #adadad;
 }

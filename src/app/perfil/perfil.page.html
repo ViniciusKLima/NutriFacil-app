@@ -1,15 +1,15 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Editar Perfil</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab4"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="/tabs/tab4"></ion-back-button>
+  </ion-buttons>
+  <ion-title>Editar Informações</ion-title>
+  <ion-button (click)="salvarPerfil()" [disabled]="!houveAlteracao() || form.invalid">
+    Salvar
+  </ion-button>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form (ngSubmit)="salvarPerfil()">
-    <!-- Exemplo para perfil.page.html -->
+<ion-content [fullscreen]="true" class="content">
+  <form #form="ngForm" (ngSubmit)="salvarPerfil()">
     <ion-item>
       <ion-label position="floating">Nome</ion-label>
       <ion-input
@@ -17,9 +17,27 @@
         name="nome"
         [placeholder]="nome || 'Digite seu nome'"
         required
-      >
-      </ion-input>
+        #nomeInput="ngModel"
+      ></ion-input>
     </ion-item>
+    <ion-text color="warning" *ngIf="nomeInput.invalid && nomeInput.touched">
+      <small>Preencha este campo</small>
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="floating">Meta de água (ml)</ion-label>
+      <ion-input
+        type="number"
+        [(ngModel)]="metaAgua"
+        name="metaAgua"
+        [placeholder]="metaAgua !== null ? metaAgua : 'Ex: 2000'"
+        required
+        #metaAguaInput="ngModel"
+      ></ion-input>
+    </ion-item>
+    <ion-text color="warning" *ngIf="metaAguaInput.invalid && metaAguaInput.touched">
+      <small>Preencha este campo</small>
+    </ion-text>
 
     <ion-item>
       <ion-label position="floating">Peso (kg)</ion-label>
@@ -27,11 +45,14 @@
         type="number"
         [(ngModel)]="peso"
         name="peso"
-        [placeholder]="peso !== null ? peso : 'Digite seu peso'"
+        [placeholder]="peso !== null ? peso : 'Ex: 73.5'"
         required
-      >
-      </ion-input>
+        #pesoInput="ngModel"
+      ></ion-input>
     </ion-item>
+    <ion-text color="warning" *ngIf="pesoInput.invalid && pesoInput.touched">
+      <small>Preencha este campo</small>
+    </ion-text>
 
     <ion-item>
       <ion-label position="floating">Altura (cm)</ion-label>
@@ -41,26 +62,28 @@
         name="altura"
         [placeholder]="altura !== null ? altura : 'Digite sua altura'"
         required
-      >
-      </ion-input>
+        #alturaInput="ngModel"
+      ></ion-input>
     </ion-item>
-    <ion-button expand="block" type="submit" class="ion-margin-top"
-      >Salvar</ion-button
-    >
+    <ion-text color="warning" *ngIf="alturaInput.invalid && alturaInput.touched">
+      <small>Preencha este campo</small>
+    </ion-text>
   </form>
 
   <div class="imc-resultados" *ngIf="imc !== null">
-    <div class="imc-boxes">
+    <div class="imc-dados">
       <div class="imc-atual">
         <h6 [ngClass]="getImcClass()">IMC Atual</h6>
         <p [ngClass]="getImcClass()">{{ imc }}</p>
       </div>
+      <div class="divisoria-verti"></div>
       <div class="imc-ideal">
         <h6>IMC Ideal</h6>
         <p>{{ imcIdeal }}</p>
       </div>
     </div>
-    <div class="imc-classificacao">
+    <div class="divisoria-horiz"></div>
+    <div class="imc-classificacao" [ngClass]="getImcClass()">
       <p>{{ imcClassificacao }}</p>
     </div>
   </div>

@@ -15,6 +15,12 @@ export class Tab2Page implements AfterViewInit {
 
   private progressCircle: any;
 
+  ionViewWillEnter() {
+    const perfil = JSON.parse(localStorage.getItem('perfil') || '{}');
+    this.meta = perfil.metaAgua || 2000;
+    this.atualizarBarra();
+  }
+
   ngAfterViewInit() {
     // Verifica se é um novo dia
     const dataSalva = localStorage.getItem('aguaHistoricoData');
@@ -91,5 +97,4 @@ export class Tab2Page implements AfterViewInit {
     localStorage.setItem('aguaProgressoAtual', this.progressoAtual.toString());
     localStorage.setItem('aguaHistoricoData', new Date().toDateString());
   }
-  
 }
