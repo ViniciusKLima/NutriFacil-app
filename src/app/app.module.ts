@@ -8,10 +8,10 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
-
-// Corrija o import do LocalNotifications:
 import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
+import { Keyboard } from '@capacitor/keyboard';
 
+Keyboard.setScroll({ isDisabled: false });
 registerLocaleData(localePt);
 
 @NgModule({

@@ -4,7 +4,11 @@
 </div>
 
 <!-- Mostra o formulário apenas se loading for false -->
-<ion-content [fullscreen]="true" class="content">
+<ion-content
+  [fullscreen]="true"
+  class="content"
+  [class.input-focus]="inputEmFoco"
+>
   <img src="../../assets/imagens/logo-nutrifacil-verde.png" class="logo-topo" />
   <div class="brocolito-fala">
     <img src="assets/imagens/brocolito/brocolito-1.png" class="brocolito-img" />
@@ -21,6 +25,8 @@
         required
         #nomeInput="ngModel"
         placeholder="Seu nome"
+        (ionFocus)="inputEmFoco = true"
+        (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
     <ion-text color="warning" *ngIf="nomeInput.invalid && nomeInput.touched">
@@ -36,6 +42,8 @@
         required
         #pesoInput="ngModel"
         placeholder="Ex: 73.5kg"
+        (ionFocus)="inputEmFoco = true"
+        (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
     <ion-text color="warning" *ngIf="pesoInput.invalid && pesoInput.touched">
@@ -51,6 +59,8 @@
         required
         #alturaInput="ngModel"
         placeholder="Ex: 175cm"
+        (ionFocus)="inputEmFoco = true"
+        (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
     <ion-text
@@ -69,6 +79,8 @@
         required
         #metaAguaInput="ngModel"
         placeholder="Ex: 3500ml"
+        (ionFocus)="inputEmFoco = true"
+        (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
     <ion-text

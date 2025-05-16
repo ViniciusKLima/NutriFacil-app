@@ -13,6 +13,7 @@ export class CadastroInicialPage {
   altura: number | null = null;
   metaAgua: number | null = null;
   loading = false;
+  inputEmFoco = false;
 
   constructor(private router: Router) {}
 
