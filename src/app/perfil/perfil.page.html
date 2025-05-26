@@ -3,7 +3,10 @@
     <ion-back-button defaultHref="/tabs/tab4"></ion-back-button>
   </ion-buttons>
   <ion-title>Editar Informações</ion-title>
-  <ion-button (click)="salvarPerfil()" [disabled]="!houveAlteracao() || form.invalid">
+  <ion-button
+    (click)="salvarPerfil()"
+    [disabled]="!houveAlteracao() || form.invalid"
+  >
     Salvar
   </ion-button>
 </ion-header>
@@ -25,6 +28,21 @@
     </ion-text>
 
     <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input
+        [(ngModel)]="email"
+        name="email"
+        type="email"
+        [placeholder]="email || 'Digite seu email'"
+        required
+        #emailInput="ngModel"
+      ></ion-input>
+    </ion-item>
+    <ion-text color="warning" *ngIf="emailInput.invalid && emailInput.touched">
+      <small>Preencha este campo com um email válido</small>
+    </ion-text>
+
+    <ion-item>
       <ion-label position="floating">Meta de água (ml)</ion-label>
       <ion-input
         type="number"
@@ -35,7 +53,10 @@
         #metaAguaInput="ngModel"
       ></ion-input>
     </ion-item>
-    <ion-text color="warning" *ngIf="metaAguaInput.invalid && metaAguaInput.touched">
+    <ion-text
+      color="warning"
+      *ngIf="metaAguaInput.invalid && metaAguaInput.touched"
+    >
       <small>Preencha este campo</small>
     </ion-text>
 
@@ -65,7 +86,10 @@
         #alturaInput="ngModel"
       ></ion-input>
     </ion-item>
-    <ion-text color="warning" *ngIf="alturaInput.invalid && alturaInput.touched">
+    <ion-text
+      color="warning"
+      *ngIf="alturaInput.invalid && alturaInput.touched"
+    >
       <small>Preencha este campo</small>
     </ion-text>
   </form>

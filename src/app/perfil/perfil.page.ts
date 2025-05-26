@@ -10,6 +10,7 @@ import { PerfilService } from '../services/perfil.service';
 })
 export class PerfilPage implements OnInit {
   nome: string = '';
+  email: string = '';
   peso: number | null = null;
   altura: number | null = null;
   metaAgua: number | null = null;
@@ -25,11 +26,11 @@ export class PerfilPage implements OnInit {
     private perfilService: PerfilService
   ) {}
 
-  async presentToast(mensagem: string) {
+  async presentToast(mensagem: string, cor: 'success' | 'danger' = 'success') {
     const toast = await this.toastController.create({
       message: mensagem,
-      duration: 1500,
-      color: 'success',
+      duration: 1800,
+      color: cor,
       position: 'top',
     });
     toast.present();
@@ -46,17 +47,19 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
     const email = localStorage.getItem('email');
     if (email) {
-      this.perfilService.getUsuarioPorEmail(email).subscribe(users => {
+      this.perfilService.getUsuarioPorEmail(email).subscribe((users) => {
         if (users.length) {
           const perfil = users[0];
           this.usuarioId = perfil.id;
           this.nome = perfil.nome || '';
+          this.email = perfil.email || '';
           this.peso = perfil.peso || null;
           this.altura = perfil.altura || null;
           this.metaAgua = perfil.metaAgua || null;
           this.atualizarCalculos();
           this.perfilOriginal = {
             nome: this.nome,
+            email: this.email,
             peso: this.peso,
             altura: this.altura,
             metaAgua: this.metaAgua,
@@ -69,6 +72,7 @@ export class PerfilPage implements OnInit {
   houveAlteracao(): boolean {
     return (
       this.nome !== this.perfilOriginal.nome ||
+      this.email !== this.perfilOriginal.email ||
       this.peso !== this.perfilOriginal.peso ||
       this.altura !== this.perfilOriginal.altura ||
       this.metaAgua !== this.perfilOriginal.metaAgua
@@ -77,20 +81,50 @@ export class PerfilPage implements OnInit {
 
   async salvarPerfil() {
     if (!this.usuarioId) {
-      await this.presentToast('Erro ao identificar usuário!');
+      await this.presentToast('Erro ao identificar usuário!', 'danger');
       return;
     }
+
+    // Validação de email
+    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email.trim());
+    if (!emailValido) {
+      await this.presentToast('Digite um email válido.', 'danger');
+      return;
+    }
+
+    // Se o email foi alterado, verifica se já existe outro usuário com esse email
+    if (this.email !== this.perfilOriginal.email) {
+      this.perfilService.getUsuarioPorEmail(this.email).subscribe((users) => {
+        // Se existe usuário com esse email e não é o próprio, bloqueia
+        if (users.length && users[0].id !== this.usuarioId) {
+          this.presentToast('Já existe um usuário com esse email.', 'danger');
+          return;
+        } else {
+          this.atualizarPerfilBackend();
+        }
+      });
+    } else {
+      this.atualizarPerfilBackend();
+    }
+  }
+
+  private atualizarPerfilBackend() {
     const dadosAtualizados = {
       nome: this.nome,
+      email: this.email,
       peso: this.peso,
       altura: this.altura,
       metaAgua: this.metaAgua,
     };
-    this.perfilService.atualizarUsuario(this.usuarioId, dadosAtualizados).subscribe(() => {
-      this.atualizarCalculos();
-      this.presentToast('Informações salvas com sucesso!');
-      this.perfilOriginal = { ...dadosAtualizados };
-    });
+    this.perfilService
+      .atualizarUsuario(this.usuarioId, dadosAtualizados)
+      .subscribe(() => {
+        this.atualizarCalculos();
+        this.presentToast('Informações salvas com sucesso!', 'success');
+        this.perfilOriginal = { ...dadosAtualizados };
+        // Atualiza o email no localStorage se ele foi alterado
+        localStorage.setItem('email', this.email);
+      });
   }
 
   atualizarCalculos() {
