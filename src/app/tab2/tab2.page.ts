@@ -1,5 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import ProgressBar from 'progressbar.js';
+import { PerfilService } from '../services/perfil.service';
 
 @Component({
   selector: 'app-tab2',
@@ -12,13 +13,28 @@ export class Tab2Page implements AfterViewInit {
   progressoAtual = 0;
   valorAdicionar: number | null = null;
   historico: { valor: number; hora: string }[] = [];
+  editando = false;
 
   private progressCircle: any;
 
+  constructor(private perfilService: PerfilService) {}
+
   ionViewWillEnter() {
-    const perfil = JSON.parse(localStorage.getItem('perfil') || '{}');
-    this.meta = perfil.metaAgua || 2000;
-    this.atualizarBarra();
+    // Busca a meta de água do usuário logado no backend
+    const email = localStorage.getItem('email');
+    if (email) {
+      this.perfilService.getUsuarioPorEmail(email).subscribe(users => {
+        if (users.length) {
+          this.meta = users[0].metaAgua || 2000;
+        } else {
+          this.meta = 2000;
+        }
+        this.atualizarBarra();
+      });
+    } else {
+      this.meta = 2000;
+      this.atualizarBarra();
+    }
   }
 
   ngAfterViewInit() {
@@ -69,8 +85,6 @@ export class Tab2Page implements AfterViewInit {
       this.valorAdicionar = null;
     }
   }
-
-  editando = false;
 
   ativarEdicao() {
     this.editando = !this.editando;

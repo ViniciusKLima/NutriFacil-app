@@ -19,17 +19,6 @@
     <ion-label class="meu-label">
       <ion-toggle
         mode="ios"
-        [(ngModel)]="notificacoesAtivas"
-        (ionChange)="toggleNotificacoes()"
-        >Notificações</ion-toggle
-      >
-    </ion-label>
-  </ion-item>
-
-  <ion-item>
-    <ion-label class="meu-label">
-      <ion-toggle
-        mode="ios"
         [checked]="darkModeAtivo"
         (ionChange)="toggleDarkMode($event)"
         >Modo Noturno</ion-toggle
@@ -37,8 +26,8 @@
     </ion-label>
   </ion-item>
 
-  <ion-item lines="none" detail="false" button="true">
-    <button class="sair">
+  <ion-item lines="none" detail="false">
+    <button class="sair" (click)="sair()">
       <h2>Sair</h2>
       <ion-icon name="exit-outline"></ion-icon>
     </button>

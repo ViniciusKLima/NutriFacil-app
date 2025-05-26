@@ -1,0 +1,51 @@
+<ion-content class="login-content">
+  <div class="alerta-popup" *ngIf="mensagemErro">
+    <ion-icon name="information-circle-outline"></ion-icon>
+    <span>{{ mensagemErro }}</span>
+  </div>
+  <div class="login-wrapper">
+    <div class="card-login">
+      <img
+        src="../../assets/imagens/logo-nutrifacil-verde.png"
+        alt="Logo"
+        class="logo"
+      />
+
+      <form class="form" (ngSubmit)="logar()">
+        <div class="titulo-login">Entrar</div>
+        <ion-item
+          lines="inset"
+          class="input-item"
+          [ngClass]="{'input-erro': erroCampos && !email}"
+        >
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input
+            [(ngModel)]="email"
+            name="email"
+            type="email"
+            placeholder="Email"
+            required
+          ></ion-input>
+        </ion-item>
+        <ion-item
+          lines="inset"
+          class="input-item"
+          [ngClass]="{'input-erro': erroCampos && !senha}"
+        >
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-input
+            [(ngModel)]="senha"
+            name="senha"
+            type="password"
+            placeholder="Senha"
+            required
+          ></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="button" (click)="logar()">Entrar</ion-button>
+      </form>
+      <div class="cadastro-link">
+        Não tem conta? <span (click)="irParaCadastro()">Cadastre-se</span>
+      </div>
+    </div>
+  </div>
+</ion-content>

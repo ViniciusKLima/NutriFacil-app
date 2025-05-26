@@ -1,0 +1,49 @@
+<ion-content>
+  <div class="alerta-popup" [ngClass]="corPopup" *ngIf="mensagemErro">
+    <ion-icon name="information-circle-outline"></ion-icon>
+    <span>{{ mensagemErro }}</span>
+  </div>
+  <div class="cadastro-wrapper">
+    <div class="cadastro-card">
+      <h2 class="titulo-cadastro">Cadastro</h2>
+      <form class="form" (ngSubmit)="cadastrar()">
+        <ion-item class="input-item">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-input [(ngModel)]="nome" name="nome" placeholder="Nome" required></ion-input>
+        </ion-item>
+        <ion-item class="input-item">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input [(ngModel)]="email" name="email" type="email" placeholder="Email" required></ion-input>
+        </ion-item>
+        <ion-item class="input-item">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-input [(ngModel)]="senha" name="senha" type="password" placeholder="Senha" required></ion-input>
+        </ion-item>
+        <ion-item class="input-item">
+          <ion-icon name="barbell-outline" slot="start"></ion-icon>
+          <ion-input [(ngModel)]="peso" name="peso" type="number" placeholder="Peso (kg)" required></ion-input>
+        </ion-item>
+        <ion-item class="input-item">
+          <ion-icon name="body-outline" slot="start"></ion-icon>
+          <ion-input [(ngModel)]="altura" name="altura" type="number" placeholder="Altura (cm)" required></ion-input>
+        </ion-item>
+        <ion-item class="input-item">
+          <ion-icon name="water-outline" slot="start"></ion-icon>
+          <ion-input [(ngModel)]="metaAgua" name="metaAgua" type="number" placeholder="Meta de água (ml)" required></ion-input>
+        </ion-item>
+        <ion-list>
+          <ion-radio-group [(ngModel)]="dietaSelecionada" name="dieta">
+            <ion-item *ngFor="let dieta of dietas">
+              <ion-label>{{ dieta.nome }}</ion-label>
+              <ion-radio slot="start" [value]="dieta.indice"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+        <ion-button expand="block" type="submit">Cadastrar</ion-button>
+      </form>
+      <div class="login-link" (click)="irParaLogin()">
+        Já tem conta? <span>Entrar</span>
+      </div>
+    </div>
+  </div>
+</ion-content>

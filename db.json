@@ -1,0 +1,26 @@
+{
+  "perfis": [
+    {
+      "id": "d47f",
+      "nome": "vinik",
+      "email": "reilobovine@gmail.com",
+      "senha": "1234",
+      "peso": 120,
+      "altura": 180,
+      "metaAgua": 4000,
+      "dieta": "Perder Peso",
+      "dietaIndice": 0
+    },
+    {
+      "id": "239a",
+      "nome": "nome",
+      "email": "1pensativoum@gmail.com",
+      "senha": "1234",
+      "peso": 123,
+      "altura": 185,
+      "metaAgua": 2000,
+      "dieta": "Manter Peso",
+      "dietaIndice": 1
+    }
+  ]
+}

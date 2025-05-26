@@ -6,9 +6,14 @@ const routes: Routes = [
     path: '',
     loadChildren: () =>
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
-  },  {
-    path: 'cadastro-inicial',
-    loadChildren: () => import('./cadastro-inicial/cadastro-inicial.module').then( m => m.CadastroInicialPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'cadastro',
+    loadChildren: () => import('./cadastro/cadastro.module').then( m => m.CadastroPageModule)
   },
 
 ];

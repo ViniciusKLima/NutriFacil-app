@@ -110,12 +110,20 @@ export class Tab1Page implements AfterViewInit, OnInit {
       });
     }, 60 * 1000);
 
-    const perfil = this.perfilService.getPerfil();
-    this.nome = perfil.nome || '';
-    this.peso = perfil.peso || null;
-    this.altura = perfil.altura || null;
-
-    this.calcularIMC();
+    // Busca o perfil do usuário logado no backend
+    const email = localStorage.getItem('email');
+    if (email) {
+      this.perfilService.getUsuarioPorEmail(email).subscribe((users) => {
+        if (users.length) {
+          const perfil = users[0];
+          this.nome = perfil.nome || '';
+          this.peso = perfil.peso || null;
+          this.altura = perfil.altura || null;
+          this.calcularIMC();
+          this.verificarTodasRefeicoesMarcadas();
+        }
+      });
+    }
   }
 
   calcularIMC() {
@@ -163,5 +171,21 @@ export class Tab1Page implements AfterViewInit, OnInit {
   onCheckChange() {
     this.atualizarProgresso();
     this.salvarChecks();
+    this.verificarTodasRefeicoesMarcadas();
+  }
+
+  private verificarTodasRefeicoesMarcadas() {
+    if (this.refeicoes.length && this.refeicoes.every((r) => r.checked)) {
+      // Força a div interativa final
+      this.divInterativa = {
+        titulo: 'Uau! Todas as refeições concluídas!',
+        paragrafo: 'Seu futuro saudável agradece!',
+        imagem: 'assets/imagens/brocolito/brocolito-feliz.png',
+        gradient: 'linear-gradient(to right, #896EFF, #A3BDFF)',
+      };
+    } else {
+      // Volta ao comportamento normal
+      this.divInterativa = this.divInterativaService.getDivInterativaAtual();
+    }
   }
 }

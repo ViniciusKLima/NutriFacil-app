@@ -1,0 +1,109 @@
+ion-content {
+  --background: #f4f4f4;
+}
+
+.alerta-popup {
+  position: fixed;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px #0002;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  z-index: 9999;
+  animation: fadeInDown 0.3s;
+}
+
+.alerta-popup.erro {
+  color: #e53935;
+  border: 1.5px solid #e53935;
+}
+.alerta-popup.sucesso {
+  color: #34a853;
+  border: 1.5px solid #34a853;
+}
+
+.alerta-popup ion-icon {
+  font-size: 1.5em;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translate(-50%, -20px);}
+  to   { opacity: 1; transform: translate(-50%, 0);}
+}
+
+.cadastro-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cadastro-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px #0001;
+  padding: 32px 24px 24px 24px;
+  width: 95%;
+  max-width: 370px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titulo-cadastro {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: #34a853;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-item {
+  --background: transparent;
+  --highlight-color-focused: #34a853;
+  --border-radius: 8px;
+  --padding-start: 8px;
+  --padding-end: 0;
+  width: 100%;
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.input-item.item-has-focus {
+  --highlight-color-focused: #34a853 !important;
+  border-bottom: 2px solid #34a853 !important;
+}
+
+.input-item ion-icon {
+  color: #34a853;
+  font-size: 1.2em;
+}
+
+ion-button {
+  --background: #34a853;
+  --border-radius: 5px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.login-link {
+  margin-top: 18px;
+  font-size: 1rem;
+  text-align: center;
+  span {
+    color: #34a853;
+    cursor: pointer;
+  }
+}

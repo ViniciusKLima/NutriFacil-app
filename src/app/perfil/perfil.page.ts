@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { ToastController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
+import { PerfilService } from '../services/perfil.service';
 
 @Component({
   selector: 'app-perfil',
@@ -14,13 +14,15 @@ export class PerfilPage implements OnInit {
   altura: number | null = null;
   metaAgua: number | null = null;
   imc: number | null = null;
-  imcIdeal: number = 22.0; // IMC ideal padrão
+  imcIdeal: number = 22.0;
   imcClassificacao: string = '';
   private perfilOriginal: any = {};
+  private usuarioId: string = '';
 
   constructor(
     private navCtrl: NavController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private perfilService: PerfilService
   ) {}
 
   async presentToast(mensagem: string) {
@@ -42,19 +44,26 @@ export class PerfilPage implements OnInit {
   }
 
   ngOnInit() {
-    const perfil = JSON.parse(localStorage.getItem('perfil') || '{}');
-    this.nome = perfil.nome || '';
-    this.peso = perfil.peso || null;
-    this.altura = perfil.altura || null;
-    this.metaAgua = perfil.metaAgua || null;
-    this.atualizarCalculos();
-
-    this.perfilOriginal = {
-      nome: this.nome,
-      peso: this.peso,
-      altura: this.altura,
-      metaAgua: this.metaAgua,
-    };
+    const email = localStorage.getItem('email');
+    if (email) {
+      this.perfilService.getUsuarioPorEmail(email).subscribe(users => {
+        if (users.length) {
+          const perfil = users[0];
+          this.usuarioId = perfil.id;
+          this.nome = perfil.nome || '';
+          this.peso = perfil.peso || null;
+          this.altura = perfil.altura || null;
+          this.metaAgua = perfil.metaAgua || null;
+          this.atualizarCalculos();
+          this.perfilOriginal = {
+            nome: this.nome,
+            peso: this.peso,
+            altura: this.altura,
+            metaAgua: this.metaAgua,
+          };
+        }
+      });
+    }
   }
 
   houveAlteracao(): boolean {
@@ -67,25 +76,21 @@ export class PerfilPage implements OnInit {
   }
 
   async salvarPerfil() {
-    localStorage.setItem(
-      'perfil',
-      JSON.stringify({
-        nome: this.nome,
-        peso: this.peso,
-        altura: this.altura,
-        metaAgua: this.metaAgua,
-      })
-    );
-    this.atualizarCalculos();
-    await this.presentToast('Informações salvas com sucesso!');
-
-    // Atualize o perfilOriginal após salvar
-    this.perfilOriginal = {
+    if (!this.usuarioId) {
+      await this.presentToast('Erro ao identificar usuário!');
+      return;
+    }
+    const dadosAtualizados = {
       nome: this.nome,
       peso: this.peso,
       altura: this.altura,
       metaAgua: this.metaAgua,
     };
+    this.perfilService.atualizarUsuario(this.usuarioId, dadosAtualizados).subscribe(() => {
+      this.atualizarCalculos();
+      this.presentToast('Informações salvas com sucesso!');
+      this.perfilOriginal = { ...dadosAtualizados };
+    });
   }
 
   atualizarCalculos() {
