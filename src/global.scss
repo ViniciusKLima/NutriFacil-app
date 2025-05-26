@@ -95,6 +95,11 @@ body.page-perfil ion-tab-bar {
   display: none !important;
 }
 
+ion-tab-bar {
+  bottom: 0;
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
+
 ion-content {
   --background: #e0dede;
 }
