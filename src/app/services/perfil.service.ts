@@ -4,17 +4,18 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PerfilService {
-  private api = 'http://localhost:3000/perfis'; // ajuste conforme seu db.json
+  // Substitua essa URL pelo link do seu endpoint no MockAPI
+  private api = 'https://68360978664e72d28e3faf8c.mockapi.io/api/v1/perfis ';
 
   constructor(private http: HttpClient) {}
 
-  // Buscar usuário pelo email (para login/cadastro)
+  // Buscar usuário(s) pelo email (para login/cadastro)
   getUsuarioPorEmail(email: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.api}?email=${email}`);
   }
 
   // Buscar perfil pelo id
-  getPerfilPorId(id: number): Observable<any> {
+  getPerfilPorId(id: string): Observable<any> {
     return this.http.get<any>(`${this.api}/${id}`);
   }
 
@@ -24,7 +25,12 @@ export class PerfilService {
   }
 
   // Atualizar perfil/usuário existente
-  atualizarUsuario(id: string, dados: any) {
-    return this.http.patch(`${this.api}/${id}`, dados);
+  atualizarUsuario(id: string, dados: any): Observable<any> {
+    return this.http.put(`${this.api}/${id}`, dados);
+  }
+
+  // Deletar um perfil (opcional, mas útil)
+  deletarUsuario(id: string): Observable<any> {
+    return this.http.delete(`${this.api}/${id}`);
   }
 }

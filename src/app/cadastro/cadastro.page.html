@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content class="content" [class.input-focus]="inputEmFoco">
   <div class="alerta-popup" [ngClass]="corPopup" *ngIf="mensagemErro">
     <ion-icon name="information-circle-outline"></ion-icon>
     <span>{{ mensagemErro }}</span>
@@ -14,6 +14,8 @@
           [(ngModel)]="nome"
           name="nome"
           placeholder="Nome"
+          (ionFocus)="inputEmFoco = true"
+          (ionBlur)="inputEmFoco = false"
           required
         ></ion-input>
       </ion-item>
@@ -26,6 +28,8 @@
           name="email"
           type="email"
           placeholder="Email"
+          (ionFocus)="inputEmFoco = true"
+          (ionBlur)="inputEmFoco = false"
           required
         ></ion-input>
       </ion-item>
@@ -38,6 +42,8 @@
           name="senha"
           type="password"
           placeholder="Senha"
+          (ionFocus)="inputEmFoco = true"
+          (ionBlur)="inputEmFoco = false"
           required
         ></ion-input>
       </ion-item>
@@ -50,6 +56,8 @@
           name="peso"
           type="number"
           placeholder="Peso (kg)"
+          (ionFocus)="inputEmFoco = true"
+          (ionBlur)="inputEmFoco = false"
           required
         ></ion-input>
       </ion-item>
@@ -62,6 +70,8 @@
           name="altura"
           type="number"
           placeholder="Altura (cm)"
+          (ionFocus)="inputEmFoco = true"
+          (ionBlur)="inputEmFoco = false"
           required
         ></ion-input>
       </ion-item>
@@ -74,6 +84,8 @@
           name="metaAgua"
           type="number"
           placeholder="Meta de água (ml)"
+          (ionFocus)="inputEmFoco = true"
+          (ionBlur)="inputEmFoco = false"
           required
         ></ion-input>
       </ion-item>
@@ -83,12 +95,18 @@
           <div class="radio-flex">
             <ion-item *ngFor="let dieta of dietas">
               <ion-label>{{ dieta.nome }}</ion-label>
-              <ion-radio mode="md" slot="start" [value]="dieta.indice"></ion-radio>
+              <ion-radio
+                mode="md"
+                slot="start"
+                [value]="dieta.indice"
+              ></ion-radio>
             </ion-item>
           </div>
         </ion-radio-group>
       </ion-list>
-      <ion-button expand="block" type="button" (click)="cadastrar()">Cadastrar</ion-button>
+      <ion-button expand="block" type="button" (click)="cadastrar()"
+        >Cadastrar</ion-button
+      >
     </form>
     <div class="login-link" (click)="irParaLogin()">
       Já tem conta? <span>Entrar</span>

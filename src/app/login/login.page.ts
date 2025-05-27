@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 import { PerfilService } from '../services/perfil.service';
+import { Network } from '@capacitor/network';
 
 @Component({
   selector: 'app-login',
@@ -18,57 +19,61 @@ export class LoginPage {
   constructor(
     private router: Router,
     private perfilService: PerfilService,
-    private toastController: ToastController
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController
   ) {}
 
   irParaCadastro() {
     this.router.navigate(['/cadastro']);
   }
 
-  // Caso queira manter o toast para outros usos
-  async mostrarToastErro(msg: string) {
-    const toast = await this.toastController.create({
-      message: `ℹ️ ${msg}`,
+  async mostrarToast(mensagem: string, cor: string = 'danger') {
+    const toast = await this.toastCtrl.create({
+      message: mensagem,
       duration: 3000,
-      color: 'danger',
       position: 'top',
-      cssClass: 'toast-custom',
-      mode: 'ios',
-      buttons: [],
+      color: cor,
+      buttons: [{ text: 'X', role: 'cancel' }],
     });
-    toast.present();
+    await toast.present();
   }
 
   async logar() {
     if (!this.email || !this.senha) {
-      this.erroCampos = true;
-      this.mensagemErro = 'Preencha os campos vazios';
-      setTimeout(() => {
-        this.erroCampos = false;
-        this.mensagemErro = '';
-      }, 3000);
+      this.mostrarToast('Preencha todos os campos.');
       return;
     }
 
-    this.perfilService.getUsuarioPorEmail(this.email).subscribe(
-      (users) => {
-        if (users.length && users[0].senha === this.senha) {
-          localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('email', this.email);
-          this.router.navigate(['/tabs/tab1']);
-        } else {
-          this.mensagemErro = 'Email ou senha inválidos.';
-          setTimeout(() => {
-            this.mensagemErro = '';
-          }, 3000);
-        }
-      },
-      () => {
-        this.mensagemErro = 'Erro ao conectar ao servidor.';
-        setTimeout(() => {
-          this.mensagemErro = '';
-        }, 3000);
+    // Verifica conexão
+    const status = await Network.getStatus();
+    if (!status.connected) {
+      this.mostrarToast('Você está sem conexão.', 'medium');
+      return;
+    }
+
+    // Mostra o loading
+    const loading = await this.loadingCtrl.create({
+      message: 'Entrando...',
+      spinner: 'crescent',
+    });
+    await loading.present();
+
+    try {
+      const usuarios = await this.perfilService.getUsuarioPorEmail(this.email).toPromise();
+
+      await loading.dismiss();
+
+      if (usuarios && usuarios.length > 0 && usuarios[0].senha === this.senha) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('email', this.email);
+        this.router.navigate(['/tabs/tab1']);
+      } else {
+        this.mostrarToast('Email ou senha inválidos.', 'danger');
       }
-    );
+    } catch (error) {
+      await loading.dismiss();
+      console.error('Erro ao fazer login:', error);
+      this.mostrarToast('Erro ao conectar ao servidor. Tente novamente.', 'danger');
+    }
   }
 }
