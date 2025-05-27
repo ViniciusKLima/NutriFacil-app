@@ -21,6 +21,17 @@
       "metaAgua": 2000,
       "dieta": "Manter Peso",
       "dietaIndice": 1
+    },
+    {
+      "id": "5f2f",
+      "nome": "Ju",
+      "email": "ju@gmail.com",
+      "senha": "1234",
+      "peso": 80,
+      "altura": 170,
+      "metaAgua": 4000,
+      "dieta": "Manter Peso",
+      "dietaIndice": 1
     }
   ]
 }

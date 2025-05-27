@@ -9,6 +9,16 @@
   align-items: center;
 }
 
+ion-item {
+  --inner-border-width: 0;
+  --inner-padding-end: 0;
+  --padding-end: 20px;
+  --background-hover: transparent;
+  --background-activated: transparent;
+  --background-focused: transparent;
+  --ripple-color: transparent;
+}
+
 .card-login {
   background: #fff;
   border-radius: 18px;
@@ -65,9 +75,15 @@
 
 .input-item ion-input {
   flex: 1 1 0%;
-  margin-left: 10px;
+  margin-left: 5px;
+  --padding-start: 5px;
   font-size: 1rem;
   color: #525252;
+  border-bottom: 1px solid #686868;
+}
+
+ion-input:focus-within{
+  border-bottom: 1px solid #34a853 !important;
 }
 
 ion-button {

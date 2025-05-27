@@ -59,6 +59,7 @@ export class Tab4Page implements OnInit {
     const alert = await this.alertController.create({
       header: 'Sair',
       message: 'Tem certeza que deseja sair?',
+      cssClass: 'alert-sair-custom',
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
         {

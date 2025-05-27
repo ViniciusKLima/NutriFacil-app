@@ -160,3 +160,23 @@ body.dark {
   --cinza-dark: #535353;
   --place-color: #adadad;
 }
+
+.alert-sair-custom .alert-wrapper {
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px #0008;
+}
+
+.alert-sair-custom .alert-title,
+.alert-sair-custom .alert-header {
+  color: #34a853;
+  font-weight: bold;
+}
+
+.alert-sair-custom .alert-button {
+  color: #34a853;
+}
+
+.alert-sair-custom .alert-button-role-cancel {
+  color: #e53935;
+}

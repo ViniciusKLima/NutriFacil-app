@@ -58,7 +58,7 @@ export class Tab2Page implements AfterViewInit {
     this.progressCircle = new ProgressBar.Circle('#progressCircle', {
       strokeWidth: 6,
       color: 'white',
-      trailColor: '#28a745',
+      trailColor: '#2f974b',
       trailWidth: 6,
       easing: 'easeInOut',
       duration: 500,
