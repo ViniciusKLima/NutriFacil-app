@@ -18,6 +18,11 @@ export class CadastroPage {
   metaAgua: number | null = null;
   dieta: string = '';
   inputEmFoco = false;
+
+  // Variáveis usadas no template HTML (que estavam faltando)
+  corPopup: string = 'erro'; // pode ser 'erro' ou 'sucesso'
+  mensagemErro: string = '';
+
   dietas = [
     { nome: 'Perder Peso', descricao: '...', indice: 0 },
     { nome: 'Manter Peso', descricao: '...', indice: 1 },
@@ -46,14 +51,22 @@ export class CadastroPage {
       !this.altura ||
       !this.metaAgua
     ) {
-      this.mostrarToast('Preencha todos os campos obrigatórios.', 'danger');
+      this.corPopup = 'erro';
+      this.mensagemErro = 'Preencha todos os campos obrigatórios.';
+      setTimeout(() => {
+        this.mensagemErro = '';
+      }, 3000);
       return;
     }
 
     // Validação de email
     const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email.trim());
     if (!emailValido) {
-      this.mostrarToast('Digite um email válido.', 'danger');
+      this.corPopup = 'erro';
+      this.mensagemErro = 'Digite um email válido.';
+      setTimeout(() => {
+        this.mensagemErro = '';
+      }, 3000);
       return;
     }
 
@@ -70,7 +83,11 @@ export class CadastroPage {
 
       if (usuarios && usuarios.length > 0) {
         await loading.dismiss();
-        this.mostrarToast('Já existe um usuário com esse email.', 'danger');
+        this.corPopup = 'erro';
+        this.mensagemErro = 'Já existe um usuário com esse email.';
+        setTimeout(() => {
+          this.mensagemErro = '';
+        }, 3000);
         return;
       }
 
@@ -90,27 +107,21 @@ export class CadastroPage {
       await this.perfilService.criarUsuario(usuario).toPromise();
       await loading.dismiss();
 
-      this.mostrarToast('Cadastro realizado com sucesso!', 'success');
-
+      this.corPopup = 'sucesso';
+      this.mensagemErro = 'Cadastro realizado com sucesso!';
       setTimeout(() => {
+        this.mensagemErro = '';
         this.router.navigate(['/login']);
       }, 1500);
 
     } catch (error) {
       await loading.dismiss();
       console.error('Erro ao cadastrar:', error);
-      this.mostrarToast('Erro ao cadastrar. Verifique sua conexão.', 'danger');
+      this.corPopup = 'erro';
+      this.mensagemErro = 'Erro ao cadastrar. Verifique sua conexão.';
+      setTimeout(() => {
+        this.mensagemErro = '';
+      }, 3000);
     }
-  }
-
-  async mostrarToast(mensagem: string, cor: string) {
-    const toast = await this.toastCtrl.create({
-      message: mensagem,
-      duration: 3000,
-      position: 'top',
-      color: cor,
-      buttons: [{ text: 'X', role: 'cancel' }],
-    });
-    await toast.present();
   }
 }

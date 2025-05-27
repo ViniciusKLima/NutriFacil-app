@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class PerfilService {
   // Substitua essa URL pelo link do seu endpoint no MockAPI
-  private api = 'https://68360978664e72d28e3faf8c.mockapi.io/api/v1/perfis ';
+  private api = 'https://68360978664e72d28e3faf8c.mockapi.io/api/v1/usuarios';
 
   constructor(private http: HttpClient) {}
 
