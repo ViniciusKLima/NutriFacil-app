@@ -39,7 +39,10 @@ export class LoginPage {
   }
 
   async logar() {
-    if (!this.email || !this.senha) {
+    const emailLimpo = this.email.trim();
+    const senhaDigitada = this.senha.trim();
+
+    if (!emailLimpo || !senhaDigitada) {
       this.mostrarToast('Preencha todos os campos.');
       return;
     }
@@ -59,20 +62,33 @@ export class LoginPage {
     await loading.present();
 
     try {
-      const usuarios = await this.perfilService.getUsuarioPorEmail(this.email).toPromise();
+      console.log('Buscando usuário com email:', emailLimpo);
+      const usuarios = await this.perfilService
+        .getUsuarioPorEmail(emailLimpo)
+        .toPromise();
 
       await loading.dismiss();
 
-      if (usuarios && usuarios.length > 0 && usuarios[0].senha === this.senha) {
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('email', this.email);
-        this.router.navigate(['/tabs/tab1']);
+      console.log('Usuário encontrado:', usuarios?.[0] || {});
+
+      if (usuarios && usuarios.length > 0) {
+        const usuario = usuarios[0];
+
+        // Garanta que ambas as senhas estão limpas antes de comparar
+        if (usuario.senha.trim() === senhaDigitada) {
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('email', emailLimpo);
+          this.router.navigate(['/tabs/tab1']);
+        } else {
+          this.mostrarToast('Senha incorreta.', 'danger');
+        }
       } else {
-        this.mostrarToast('Email ou senha inválidos.', 'danger');
+        this.mostrarToast('Email não encontrado.', 'danger');
       }
     } catch (error) {
       await loading.dismiss();
       console.error('Erro ao fazer login:', error);
+
       this.mostrarToast('Erro ao conectar ao servidor. Tente novamente.', 'danger');
     }
   }

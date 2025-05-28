@@ -19,8 +19,7 @@ export class CadastroPage {
   dieta: string = '';
   inputEmFoco = false;
 
-  // Variáveis usadas no template HTML (que estavam faltando)
-  corPopup: string = 'erro'; // pode ser 'erro' ou 'sucesso'
+  corPopup: string = 'erro';
   mensagemErro: string = '';
 
   dietas = [
@@ -42,10 +41,14 @@ export class CadastroPage {
   }
 
   async cadastrar() {
-    // Validação de campos obrigatórios
+    const emailLimpo = this.email.trim();
+
+    console.log('Email digitado:', this.email);
+    console.log('Email após trim():', emailLimpo);
+
     if (
       !this.nome.trim() ||
-      !this.email.trim() ||
+      !emailLimpo ||
       !this.senha.trim() ||
       !this.peso ||
       !this.altura ||
@@ -59,8 +62,7 @@ export class CadastroPage {
       return;
     }
 
-    // Validação de email
-    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email.trim());
+    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailLimpo);
     if (!emailValido) {
       this.corPopup = 'erro';
       this.mensagemErro = 'Digite um email válido.';
@@ -70,7 +72,6 @@ export class CadastroPage {
       return;
     }
 
-    // Mostra o loading
     const loading = await this.loadingCtrl.create({
       message: 'Verificando...',
       spinner: 'crescent',
@@ -78,8 +79,9 @@ export class CadastroPage {
     await loading.present();
 
     try {
-      // Verifica se já existe usuário com o mesmo email
-      const usuarios = await this.perfilService.getUsuarioPorEmail(this.email).toPromise();
+      console.log('Buscando usuário com email:', emailLimpo);
+      const usuarios = await this.perfilService.getUsuarioPorEmail(emailLimpo).toPromise();
+      console.log('Usuários encontrados:', usuarios);
 
       if (usuarios && usuarios.length > 0) {
         await loading.dismiss();
@@ -91,10 +93,9 @@ export class CadastroPage {
         return;
       }
 
-      // Prepara dados do usuário
       const usuario = {
         nome: this.nome.trim(),
-        email: this.email.trim(),
+        email: emailLimpo,
         senha: this.senha,
         peso: this.peso,
         altura: this.altura,
@@ -103,8 +104,10 @@ export class CadastroPage {
         dietaIndice: this.dietaSelecionada,
       };
 
-      // Faz o cadastro
-      await this.perfilService.criarUsuario(usuario).toPromise();
+      console.log('Cadastrando novo usuário:', usuario);
+      const resultado = await this.perfilService.criarUsuario(usuario).toPromise();
+      console.log('Usuário cadastrado com sucesso:', resultado);
+
       await loading.dismiss();
 
       this.corPopup = 'sucesso';
@@ -117,11 +120,31 @@ export class CadastroPage {
     } catch (error) {
       await loading.dismiss();
       console.error('Erro ao cadastrar:', error);
+
+      let mensagem = 'Erro ao cadastrar. Verifique sua conexão.';
+
+      if (error instanceof Error) {
+        mensagem = `Erro: ${error.message}`;
+      }
+
       this.corPopup = 'erro';
-      this.mensagemErro = 'Erro ao cadastrar. Verifique sua conexão.';
+      this.mensagemErro = mensagem;
       setTimeout(() => {
         this.mensagemErro = '';
       }, 3000);
+
+      this.mostrarToast(mensagem, 'danger');
     }
+  }
+
+  async mostrarToast(mensagem: string, cor: string = 'danger') {
+    const toast = await this.toastCtrl.create({
+      message: mensagem,
+      duration: 3000,
+      position: 'top',
+      color: cor,
+      buttons: [{ text: 'X', role: 'cancel' }],
+    });
+    await toast.present();
   }
 }
