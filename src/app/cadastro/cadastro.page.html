@@ -21,6 +21,20 @@
       </ion-item>
       <ion-item class="input-item">
         <div class="icon-wapper">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        </div>
+        <ion-input
+          [(ngModel)]="dataNascimento"
+          name="dataNascimento"
+          type="date"
+          placeholder="Data de Nascimento"
+          (ionFocus)="inputEmFoco = true"
+          (ionBlur)="inputEmFoco = false"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item class="input-item">
+        <div class="icon-wapper">
           <ion-icon name="mail-outline" slot="start"></ion-icon>
         </div>
         <ion-input

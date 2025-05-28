@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
 import { Router } from '@angular/router';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   showSplash = true;
 
   constructor(
-    private router: Router
+    private router: Router, private screenOrientation: ScreenOrientation
   ) {
     // Aplica o modo noturno salvo ao iniciar o app
     const darkModeAtivo = localStorage.getItem('darkMode') === 'true';
@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     // Redireciona para cadastro inicial se não houver perfil cadastrado
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (!isLoggedIn) {

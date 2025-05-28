@@ -1,0 +1,68 @@
+<ion-content class="content">
+  <div class="recuperar-wrapper">
+    <h2 class="titulo-recuperar">Recuperar Senha</h2>
+    <form *ngIf="!mostrarFormSenha" class="form">
+      <ion-item class="input-item">
+        <div class="icon-wapper">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+        </div>
+        <ion-input
+          [(ngModel)]="email"
+          name="email"
+          type="email"
+          placeholder="Digite o email da conta"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <div class="icon-wapper">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        </div>
+        <ion-input
+          [(ngModel)]="dataNascimento"
+          name="dataNascimento"
+          type="date"
+          placeholder="Data de Nascimento"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="validarDados()"
+        >Validar Dados</ion-button
+      >
+    </form>
+
+    <form *ngIf="mostrarFormSenha" class="form">
+      <ion-item class="input-item">
+        <div class="icon-wapper">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        </div>
+        <ion-input
+          [(ngModel)]="novaSenha"
+          name="novaSenha"
+          type="password"
+          placeholder="Digite sua nova senha"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <div class="icon-wapper">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        </div>
+        <ion-input
+          [(ngModel)]="confirmarSenha"
+          name="confirmarSenha"
+          type="password"
+          placeholder="Confirme sua nova senha"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="alterarSenha()"
+        >Alterar Senha</ion-button
+      >
+    </form>
+  </div>
+</ion-content>

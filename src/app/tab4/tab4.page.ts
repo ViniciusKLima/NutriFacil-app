@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
 
 @Component({
   selector: 'app-tab4',
@@ -11,7 +10,6 @@ import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications
 })
 export class Tab4Page implements OnInit {
   darkModeAtivo = false;
-  notificacoesAtivas = true;
 
   // Variáveis do formulário de perfil
   mostrarFormulario = false;
@@ -20,7 +18,6 @@ export class Tab4Page implements OnInit {
   altura: number | null = null;
 
   constructor(
-    private localNotifications: LocalNotifications,
     private router: Router,
     private alertController: AlertController
   ) {

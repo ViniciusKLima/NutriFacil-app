@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
 import { PerfilService } from '../services/perfil.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-perfil',
@@ -10,10 +11,12 @@ import { PerfilService } from '../services/perfil.service';
 })
 export class PerfilPage implements OnInit {
   nome: string = '';
+  dataNascimento: string = '';
   email: string = '';
   peso: number | null = null;
   altura: number | null = null;
   metaAgua: number | null = null;
+  inputEmFoco = false;
   imc: number | null = null;
   imcIdeal: number = 22.0;
   imcClassificacao: string = '';
@@ -52,6 +55,9 @@ export class PerfilPage implements OnInit {
           const perfil = users[0];
           this.usuarioId = perfil.id;
           this.nome = perfil.nome || '';
+          this.dataNascimento = perfil.dataNascimento
+            ? perfil.dataNascimento.split('T')[0]
+            : '';
           this.email = perfil.email || '';
           this.peso = perfil.peso || null;
           this.altura = perfil.altura || null;
@@ -59,6 +65,7 @@ export class PerfilPage implements OnInit {
           this.atualizarCalculos();
           this.perfilOriginal = {
             nome: this.nome,
+            dataNascimento: this.dataNascimento,
             email: this.email,
             peso: this.peso,
             altura: this.altura,
@@ -72,6 +79,7 @@ export class PerfilPage implements OnInit {
   houveAlteracao(): boolean {
     return (
       this.nome !== this.perfilOriginal.nome ||
+      this.dataNascimento !== this.perfilOriginal.dataNascimento ||
       this.email !== this.perfilOriginal.email ||
       this.peso !== this.perfilOriginal.peso ||
       this.altura !== this.perfilOriginal.altura ||
@@ -85,27 +93,26 @@ export class PerfilPage implements OnInit {
       return;
     }
 
-    // Validação de email
     const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email.trim());
     if (!emailValido) {
       await this.presentToast('Digite um email válido.', 'danger');
       return;
     }
 
-    // Se o email foi alterado, verifica se já existe outro usuário com esse email
     if (this.email !== this.perfilOriginal.email) {
-      this.perfilService.getUsuarioPorEmail(this.email).subscribe((users) => {
-        // Se existe usuário com esse email e não é o próprio, bloqueia
-        if (users.length && users[0].id !== this.usuarioId) {
-          this.presentToast('Já existe um usuário com esse email.', 'danger');
-          return;
-        } else {
-          this.atualizarPerfilBackend();
-        }
-      });
-    } else {
-      this.atualizarPerfilBackend();
+      const users = await firstValueFrom(
+        this.perfilService.getUsuarioPorEmail(this.email)
+      );
+      if (users.length && users[0].id !== this.usuarioId) {
+        await this.presentToast(
+          'Já existe um usuário com esse email.',
+          'danger'
+        );
+        return;
+      }
     }
+
+    this.atualizarPerfilBackend();
   }
 
   private atualizarPerfilBackend() {
@@ -115,6 +122,7 @@ export class PerfilPage implements OnInit {
       peso: this.peso,
       altura: this.altura,
       metaAgua: this.metaAgua,
+      dataNascimento: this.dataNascimento,
     };
     this.perfilService
       .atualizarUsuario(this.usuarioId, dadosAtualizados)

@@ -2,6 +2,10 @@ body.page-perfil ion-tab-bar {
   display: none !important;
 }
 
+ion-content.input-focus{
+  --padding-bottom: 45vh;
+}
+
 ion-header {
   padding-top: 12%;
   display: flex;
@@ -10,6 +14,8 @@ ion-header {
   font-family: "Nunito", sans-serif;
   font-weight: 700;
   color: #34a853;
+  padding-bottom: 10px;
+  background: var(--background);
 
   ion-title {
     font-weight: 700;

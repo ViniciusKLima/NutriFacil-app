@@ -8,7 +8,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
-import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation/ngx';
 import { Keyboard } from '@capacitor/keyboard';
 
 Keyboard.setScroll({ isDisabled: false });
@@ -20,7 +20,7 @@ registerLocaleData(localePt);
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: LOCALE_ID, useValue: 'pt-BR' },
-    LocalNotifications 
+    ScreenOrientation
   ],
   bootstrap: [AppComponent],
 })

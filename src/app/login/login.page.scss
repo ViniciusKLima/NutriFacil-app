@@ -2,6 +2,10 @@
   --background: #34a853 !important;
 }
 
+ion-content.input-focus{
+  --padding-bottom: 20vh;
+}
+
 .login-wrapper {
   min-height: 100vh;
   display: flex;
@@ -131,6 +135,22 @@ ion-button {
   font-size: 2em;
   color: #fff;
 }
+
+.esqueceu-senha {
+  color: #388e3c;
+  font-size: 12px;
+  text-align: right;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.esqueceu-senha:hover {
+  color: #2e7d32;
+  text-decoration: underline;
+}
+
+
 
 @keyframes fadeInDown {
   from {

@@ -104,6 +104,10 @@ ion-content {
   --background: #e0dede;
 }
 
+.header-perfil {
+  --background: #e0dede;
+}
+
 ion-header {
   height: 40%;
   box-shadow: none !important;
@@ -124,6 +128,10 @@ ion-toolbar {
 
 body.dark {
   --ion-background-color: #1e2023;
+
+  .header-perfil {
+    --background: #1e2023 !important;
+  }
 
   ion-content {
     --background: #1e2023 !important;

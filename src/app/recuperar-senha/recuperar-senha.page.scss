@@ -1,0 +1,122 @@
+.content {
+  --background: #fff !important;
+}
+
+.recuperar-wrapper {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+.titulo-recuperar {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #34a853;
+  padding: 0;
+  margin: 10vh 0 0 0;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-item {
+  --background: transparent;
+  --border-width: 0;
+  --inner-border-width: 0;
+  --inner-padding-end: 0;
+  --padding-end: 20px;
+  width: 100%;
+  margin-bottom: 0;
+  font-size: 1rem;
+  position: relative;
+
+  ion-input {
+    width: 100%;
+    --padding-start: 1rem;
+    font-size: 1rem;
+    font-family: "Open Sans", sans-serif;
+    color: var(--place-color);
+    border: 1px solid var(--cinza-dark);
+    border-radius: 5px;
+    margin-left: 10px;
+  }
+
+  .icon-wapper {
+    position: absolute;
+    background: #fff !important;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 0.5px;
+
+    ion-icon {
+      color: #34a853;
+      font-size: 1.2em;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+.input-item.item-has-focus {
+  --highlight-color-focused: #34a853 !important;
+}
+
+ion-button {
+  --background: #34a853;
+  --border-radius: 5px;
+  width: 90%;
+  margin-top: 10px;
+}
+
+ion-item {
+  --background: transparent;
+  --border-width: 0;
+  --inner-border-width: 0;
+  --inner-padding-end: 0;
+  --padding-end: 20px;
+  --background-hover: transparent;
+  --background-activated: transparent;
+  --background-focused: transparent;
+  --ripple-color: transparent;
+  color: #34a853 !important;
+  font-size: small;
+  display: flex;
+  gap: 15px;
+
+  ion-radio {
+    --color-checked: #34a853;
+    --color: #34a853 !important;
+    margin-right: 10px;
+  }
+}
+
+ion-item:hover ion-label {
+  color: #278240 !important;
+}
+
+ion-label {
+  width: 100%;
+}
+
+ion-input:focus-within {
+  border: 2px solid #34a853 !important;
+  box-shadow: 0 0 5px rgba(52, 168, 83, 0.5);
+}
+
+@media (max-width: 416px) {
+  .radio-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+}

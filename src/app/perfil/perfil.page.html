@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="header-perfil">
   <ion-buttons slot="start">
     <ion-back-button defaultHref="/tabs/tab4"></ion-back-button>
   </ion-buttons>
@@ -11,7 +11,11 @@
   </ion-button>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="content">
+<ion-content
+  [fullscreen]="true"
+  class="content"
+  [class.input-focus]="inputEmFoco"
+>
   <form #form="ngForm" (ngSubmit)="salvarPerfil()">
     <ion-item>
       <ion-label position="floating">Nome</ion-label>
@@ -21,9 +25,30 @@
         [placeholder]="nome || 'Digite seu nome'"
         required
         #nomeInput="ngModel"
+        (ionFocus)="inputEmFoco = true"
+        (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
     <ion-text color="warning" *ngIf="nomeInput.invalid && nomeInput.touched">
+      <small>Preencha este campo</small>
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="floating">Data de Nascimento</ion-label>
+      <ion-input
+        [(ngModel)]="dataNascimento"
+        name="dataNascimento"
+        type="date"
+        required
+        #dataNascimentoInput="ngModel"
+        (ionFocus)="inputEmFoco = true"
+        (ionBlur)="inputEmFoco = false"
+      ></ion-input>
+    </ion-item>
+    <ion-text
+      color="warning"
+      *ngIf="dataNascimentoInput.invalid && dataNascimentoInput.touched"
+    >
       <small>Preencha este campo</small>
     </ion-text>
 
@@ -36,6 +61,8 @@
         [placeholder]="email || 'Digite seu email'"
         required
         #emailInput="ngModel"
+        (ionFocus)="inputEmFoco = true"
+        (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
     <ion-text color="warning" *ngIf="emailInput.invalid && emailInput.touched">
@@ -51,6 +78,8 @@
         [placeholder]="metaAgua !== null ? metaAgua : 'Ex: 2000'"
         required
         #metaAguaInput="ngModel"
+        (ionFocus)="inputEmFoco = true"
+        (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
     <ion-text
@@ -69,6 +98,8 @@
         [placeholder]="peso !== null ? peso : 'Ex: 73.5'"
         required
         #pesoInput="ngModel"
+        (ionFocus)="inputEmFoco = true"
+        (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
     <ion-text color="warning" *ngIf="pesoInput.invalid && pesoInput.touched">
@@ -84,6 +115,8 @@
         [placeholder]="altura !== null ? altura : 'Digite sua altura'"
         required
         #alturaInput="ngModel"
+        (ionFocus)="inputEmFoco = true"
+        (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
     <ion-text

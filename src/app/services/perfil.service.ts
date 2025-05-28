@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class PerfilService {
-  private api = 'https://68360978664e72d28e3faf8c.mockapi.io/api/v1/usuarios ';
+  private api = 'https://68360978664e72d28e3faf8c.mockapi.io/api/v1/usuarios';
 
   constructor(private http: HttpClient) {}
 

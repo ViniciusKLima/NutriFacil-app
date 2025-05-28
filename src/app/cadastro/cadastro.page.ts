@@ -16,6 +16,7 @@ export class CadastroPage {
   peso: number | null = null;
   altura: number | null = null;
   metaAgua: number | null = null;
+  dataNascimento: string = '';
   dieta: string = '';
   inputEmFoco = false;
 
@@ -43,22 +44,18 @@ export class CadastroPage {
   async cadastrar() {
     const emailLimpo = this.email.trim();
 
-    console.log('Email digitado:', this.email);
-    console.log('Email após trim():', emailLimpo);
-
     if (
       !this.nome.trim() ||
       !emailLimpo ||
       !this.senha.trim() ||
+      !this.dataNascimento.trim() ||
       !this.peso ||
       !this.altura ||
       !this.metaAgua
     ) {
       this.corPopup = 'erro';
       this.mensagemErro = 'Preencha todos os campos obrigatórios.';
-      setTimeout(() => {
-        this.mensagemErro = '';
-      }, 3000);
+      setTimeout(() => { this.mensagemErro = ''; }, 3000);
       return;
     }
 
@@ -66,9 +63,7 @@ export class CadastroPage {
     if (!emailValido) {
       this.corPopup = 'erro';
       this.mensagemErro = 'Digite um email válido.';
-      setTimeout(() => {
-        this.mensagemErro = '';
-      }, 3000);
+      setTimeout(() => { this.mensagemErro = ''; }, 3000);
       return;
     }
 
@@ -79,17 +74,12 @@ export class CadastroPage {
     await loading.present();
 
     try {
-      console.log('Buscando usuário com email:', emailLimpo);
       const usuarios = await this.perfilService.getUsuarioPorEmail(emailLimpo).toPromise();
-      console.log('Usuários encontrados:', usuarios);
-
       if (usuarios && usuarios.length > 0) {
         await loading.dismiss();
         this.corPopup = 'erro';
         this.mensagemErro = 'Já existe um usuário com esse email.';
-        setTimeout(() => {
-          this.mensagemErro = '';
-        }, 3000);
+        setTimeout(() => { this.mensagemErro = ''; }, 3000);
         return;
       }
 
@@ -97,6 +87,7 @@ export class CadastroPage {
         nome: this.nome.trim(),
         email: emailLimpo,
         senha: this.senha,
+        dataNascimento: this.dataNascimento,
         peso: this.peso,
         altura: this.altura,
         metaAgua: this.metaAgua,
@@ -104,10 +95,7 @@ export class CadastroPage {
         dietaIndice: this.dietaSelecionada,
       };
 
-      console.log('Cadastrando novo usuário:', usuario);
       const resultado = await this.perfilService.criarUsuario(usuario).toPromise();
-      console.log('Usuário cadastrado com sucesso:', resultado);
-
       await loading.dismiss();
 
       this.corPopup = 'sucesso';
@@ -120,20 +108,10 @@ export class CadastroPage {
     } catch (error) {
       await loading.dismiss();
       console.error('Erro ao cadastrar:', error);
-
-      let mensagem = 'Erro ao cadastrar. Verifique sua conexão.';
-
-      if (error instanceof Error) {
-        mensagem = `Erro: ${error.message}`;
-      }
-
       this.corPopup = 'erro';
-      this.mensagemErro = mensagem;
-      setTimeout(() => {
-        this.mensagemErro = '';
-      }, 3000);
-
-      this.mostrarToast(mensagem, 'danger');
+      this.mensagemErro = 'Erro ao cadastrar. Verifique sua conexão.';
+      setTimeout(() => { this.mensagemErro = ''; }, 3000);
+      this.mostrarToast(this.mensagemErro, 'danger');
     }
   }
 
@@ -148,3 +126,4 @@ export class CadastroPage {
     await toast.present();
   }
 }
+
