@@ -10,6 +10,7 @@
       </div>
     </div>
 
+    <!-- Barra de Progresso Circular -->
     <div class="circulo">
       <div #progressBar class="icone-base"></div>
       <ion-icon name="restaurant" class="icone-topo"></ion-icon>
@@ -22,7 +23,9 @@
     <div class="div-pesoIdeal">
       <p class="p-ideal">Peso ideal</p>
       <div class="div-pesoI">
-        <h6 class="pesoIdeal">{{ pesoIdeal !== null && pesoIdeal !== undefined ? pesoIdeal : '--' }}</h6>
+        <h6 class="pesoIdeal">
+          {{ pesoIdeal !== null && pesoIdeal !== undefined ? pesoIdeal : '--' }}
+        </h6>
         <p class="kg-ideal">Kg</p>
       </div>
     </div>
@@ -30,6 +33,8 @@
 </ion-header>
 
 <ion-content class="refeicoes-content" [fullscreen]="true">
+
+  <!-- Div do Brocolíto -->
   <div
     class="div-interativa"
     [ngStyle]="{'background': divInterativa.gradient}"
@@ -42,7 +47,10 @@
       <img [src]="divInterativa.imagem" alt="" />
     </div>
   </div>
+
   <div class="refeicoes-list">
+
+    <!-- Div automática para cada refeição -->
     <div
       *ngFor="let refeicao of refeicoes; let i = index"
       [class.checked]="refeicao.checked"

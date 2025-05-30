@@ -5,7 +5,11 @@
   </div>
   <div class="cadastro-wrapper cadastro-card">
     <h2 class="titulo-cadastro">Cadastro</h2>
+
+    <!--Form Cadastro-->
     <form class="form" (ngSubmit)="cadastrar()">
+
+      <!--Nome-->
       <ion-item class="input-item">
         <div class="icon-wapper">
           <ion-icon name="person-outline" slot="start"></ion-icon>
@@ -19,6 +23,8 @@
           required
         ></ion-input>
       </ion-item>
+
+      <!--Data de Nascimento-->
       <ion-item class="input-item">
         <div class="icon-wapper">
           <ion-icon name="calendar-outline" slot="start"></ion-icon>
@@ -33,6 +39,8 @@
           required
         ></ion-input>
       </ion-item>
+
+      <!--Email-->
       <ion-item class="input-item">
         <div class="icon-wapper">
           <ion-icon name="mail-outline" slot="start"></ion-icon>
@@ -47,6 +55,8 @@
           required
         ></ion-input>
       </ion-item>
+
+      <!--Senha-->
       <ion-item class="input-item">
         <div class="icon-wapper">
           <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
@@ -61,6 +71,8 @@
           required
         ></ion-input>
       </ion-item>
+
+      <!--Peso-->
       <ion-item class="input-item">
         <div class="icon-wapper">
           <ion-icon name="barbell-outline" slot="start"></ion-icon>
@@ -75,6 +87,8 @@
           required
         ></ion-input>
       </ion-item>
+
+      <!--Altura-->
       <ion-item class="input-item">
         <div class="icon-wapper">
           <ion-icon name="body-outline" slot="start"></ion-icon>
@@ -89,6 +103,8 @@
           required
         ></ion-input>
       </ion-item>
+
+      <!-- Meta de Água-->
       <ion-item class="input-item">
         <div class="icon-wapper">
           <ion-icon name="water-outline" slot="start"></ion-icon>
@@ -97,12 +113,14 @@
           [(ngModel)]="metaAgua"
           name="metaAgua"
           type="number"
-          placeholder="Meta de água (ml)"
+          placeholder="Meta de água por dia (ml)"
           (ionFocus)="inputEmFoco = true"
           (ionBlur)="inputEmFoco = false"
           required
         ></ion-input>
       </ion-item>
+
+      <!--Selects Dietas-->
       <ion-title class="tt-radio">Escolha a sua dieta:</ion-title>
       <ion-list class="radio">
         <ion-radio-group [(ngModel)]="dietaSelecionada" name="dieta">
@@ -118,10 +136,13 @@
           </div>
         </ion-radio-group>
       </ion-list>
+
+      <!--Botão-->
       <ion-button expand="block" type="button" (click)="cadastrar()"
-        >Cadastrar</ion-button
-      >
+        >Cadastrar</ion-button>
     </form>
+
+    <!-- Rota para Login-->
     <div class="login-link" (click)="irParaLogin()">
       Já tem conta? <span>Entrar</span>
     </div>

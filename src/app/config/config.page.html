@@ -8,13 +8,16 @@
   <div class="tt-config">
     <h4>Configurações</h4>
   </div>
-  <ion-item [routerLink]="['/tabs/perfil']" button>
+
+  <!-- Rota para Perfil -->
+  <ion-item [routerLink]="['/nav/perfil']" button>
     <ion-label class="meu-label">
       <h2 class="tt-alterar">Alterar Dados da Conta</h2>
     </ion-label>
     <ion-icon name="chevron-forward-outline"></ion-icon>
   </ion-item>
 
+  <!-- Toggle modo noturno -->
   <ion-item>
     <ion-label class="meu-label">
       <ion-toggle
@@ -26,6 +29,7 @@
     </ion-label>
   </ion-item>
 
+  <!-- Botão sair -->
   <ion-item lines="none" detail="false">
     <button class="sair" (click)="sair()">
       <h2>Sair</h2>

@@ -23,14 +23,17 @@ export class LoginPage {
     private loadingCtrl: LoadingController
   ) {}
 
+  // Rota para cadastro
   irParaCadastro() {
     this.router.navigate(['/cadastro']);
   }
 
+  // Rota para recuperação de senha
   irParaEsqueceuSenha() {
     this.router.navigate(['/recuperar-senha']);
   }
 
+  // Pop-up para erros
   async mostrarToast(mensagem: string, cor: string = 'danger') {
     const toast = await this.toastCtrl.create({
       message: mensagem,
@@ -42,15 +45,19 @@ export class LoginPage {
     await toast.present();
   }
 
+  // Requisitos para login
   async logar() {
     const emailLimpo = this.email.trim();
     const senhaDigitada = this.senha.trim();
 
+    // Verifica inputs preenchidos
     if (!emailLimpo || !senhaDigitada) {
       this.mostrarToast('Preencha todos os campos.');
       return;
     }
 
+
+    // Chama loading para verificação
     const loading = await this.loadingCtrl.create({
       message: 'Entrando...',
       spinner: 'crescent',
@@ -58,30 +65,30 @@ export class LoginPage {
     await loading.present();
 
     try {
-      console.log('Buscando usuário com email:', emailLimpo);
       const usuarios = await this.perfilService
         .getUsuarioPorEmail(emailLimpo)
         .toPromise();
 
       await loading.dismiss();
 
+      // Verifica email
       if (usuarios && usuarios.length > 0) {
         const usuario = usuarios[0];
-        console.log('Usuário encontrado:', usuario);
 
+        // Verifica senha
         if (usuario.senha?.trim() === senhaDigitada) {
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('email', emailLimpo);
           this.email = '';
           this.senha = '';
-          this.router.navigate(['/tabs/tab1']);
+          this.router.navigate(['/nav/home']); // Se tudo 'Ok', envia para o Home
         } else {
-          this.mostrarToast('Senha incorreta.');
+          this.mostrarToast('Senha incorreta.'); // Senha inválida
         }
       } else {
-        this.mostrarToast('Email não encontrado.');
+        this.mostrarToast('Email não encontrado.'); // Email não existe
       }
-    } catch (error) {
+    } catch (error) { // Se não conseguir conectar ou achar a API, retorna o erro
       await loading.dismiss();
       console.error('Erro ao fazer login:', error);
       this.mostrarToast('Erro ao conectar ao servidor.');

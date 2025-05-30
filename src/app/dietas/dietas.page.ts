@@ -17,6 +17,7 @@ export class DietasPage implements OnInit {
     private perfilService: PerfilService
   ) {}
 
+  // Vrifica a dieta escolhida
   ngOnInit() {
     const email = localStorage.getItem('email');
     if (email) {
@@ -29,11 +30,12 @@ export class DietasPage implements OnInit {
     }
   }
 
+  // Possibilita escolher dieta
   selecionarDieta(indice: number) {
     this.dietaSelecionada = indice;
     this.dietaService.selecionarDieta(indice);
 
-    // Atualiza no backend também!
+    // Atualiza no backend
     const email = localStorage.getItem('email');
     if (email) {
       this.perfilService.getUsuarioPorEmail(email).subscribe(users => {

@@ -22,6 +22,8 @@ export class RegAguaPage implements AfterViewInit {
   ionViewWillEnter() {
     // Busca a meta de água do usuário logado no backend
     const email = localStorage.getItem('email');
+
+    // Condição para por 2000ml na meta caso não tenha nada
     if (email) {
       this.perfilService.getUsuarioPorEmail(email).subscribe(users => {
         if (users.length) {
@@ -55,6 +57,7 @@ export class RegAguaPage implements AfterViewInit {
       this.salvarHistorico();
     }
 
+    // Configurações da Barra de Progresso Circular
     this.progressCircle = new ProgressBar.Circle('#progressCircle', {
       strokeWidth: 6,
       color: 'white',
@@ -67,6 +70,7 @@ export class RegAguaPage implements AfterViewInit {
     this.atualizarBarra();
   }
 
+  // Função de adicionar o valor
   adicionarValor() {
     if (this.valorAdicionar && this.valorAdicionar > 0) {
       this.progressoAtual += this.valorAdicionar;
@@ -86,6 +90,7 @@ export class RegAguaPage implements AfterViewInit {
     }
   }
 
+  // Botão de editar para liberar 'remover'
   ativarEdicao() {
     this.editando = !this.editando;
   }
@@ -99,6 +104,7 @@ export class RegAguaPage implements AfterViewInit {
     this.atualizarBarra();
   }
 
+  // Atualiza a barra de progresso
   atualizarBarra() {
     let progresso = Math.min(this.progressoAtual / this.meta, 1);
     if (this.progressCircle) {
@@ -106,6 +112,7 @@ export class RegAguaPage implements AfterViewInit {
     }
   }
 
+  // Salva tudo localmente
   salvarHistorico() {
     localStorage.setItem('aguaHistorico', JSON.stringify(this.historico));
     localStorage.setItem('aguaProgressoAtual', this.progressoAtual.toString());

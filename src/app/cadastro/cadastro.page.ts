@@ -37,13 +37,16 @@ export class CadastroPage {
     private toastCtrl: ToastController
   ) {}
 
+  // Rota login
   irParaLogin() {
     this.router.navigate(['/login']);
   }
 
+  // Requisitos para cadastrar
   async cadastrar() {
-    const emailLimpo = this.email.trim();
+    const emailLimpo = this.email.trim(); //limpa o email
 
+    // Verificação de Preenchimento dos Inputs
     if (
       !this.nome.trim() ||
       !emailLimpo ||
@@ -59,6 +62,7 @@ export class CadastroPage {
       return;
     }
 
+    // Verificação de email válido
     const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailLimpo);
     if (!emailValido) {
       this.corPopup = 'erro';
@@ -67,12 +71,14 @@ export class CadastroPage {
       return;
     }
 
+    // Loading enquanto busca na API
     const loading = await this.loadingCtrl.create({
       message: 'Verificando...',
       spinner: 'crescent',
     });
     await loading.present();
 
+    // Verificação se já existe
     try {
       const usuarios = await this.perfilService.getUsuarioPorEmail(emailLimpo).toPromise();
       if (usuarios && usuarios.length > 0) {
@@ -83,6 +89,7 @@ export class CadastroPage {
         return;
       }
 
+      // Cria o usuário
       const usuario = {
         nome: this.nome.trim(),
         email: emailLimpo,
@@ -95,6 +102,7 @@ export class CadastroPage {
         dietaIndice: this.dietaSelecionada,
       };
 
+      // Usa a função do service para enviar à API
       const resultado = await this.perfilService.criarUsuario(usuario).toPromise();
       await loading.dismiss();
 
@@ -105,7 +113,7 @@ export class CadastroPage {
         this.router.navigate(['/login']);
       }, 1500);
 
-    } catch (error) {
+    } catch (error) { // Se não conseguir conectar ou achar API, retorna o erro
       await loading.dismiss();
       console.error('Erro ao cadastrar:', error);
       this.corPopup = 'erro';
@@ -115,6 +123,7 @@ export class CadastroPage {
     }
   }
 
+  // Pop-up para informar os erros que der
   async mostrarToast(mensagem: string, cor: string = 'danger') {
     const toast = await this.toastCtrl.create({
       message: mensagem,

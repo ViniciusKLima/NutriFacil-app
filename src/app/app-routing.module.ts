@@ -5,7 +5,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./tabs/tabs.module').then((m) => m.TabsPageModule),
+      import('./nav/nav.module').then((m) => m.NavPageModule),
   },
   {
     path: 'login',

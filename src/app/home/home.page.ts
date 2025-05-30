@@ -73,6 +73,7 @@ export class HomePage implements AfterViewInit, OnInit {
       this.atualizarProgresso();
     });
 
+    // Formatação da data
     const hoje = new Date();
     let data = hoje.toLocaleDateString('pt-BR', {
       weekday: 'short',
@@ -126,6 +127,7 @@ export class HomePage implements AfterViewInit, OnInit {
     }
   }
 
+  // Calcula IMC
   calcularIMC() {
     if (this.peso && this.altura) {
       const alturaMetros = this.altura / 100; // converte cm para metros
@@ -143,6 +145,8 @@ export class HomePage implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
+
+    // Configurações da Barra de Progresso Circular
     this.bar = new ProgressBar.Circle(this.progressBarElement.nativeElement, {
       strokeWidth: 6,
       color: 'white',
@@ -154,6 +158,7 @@ export class HomePage implements AfterViewInit, OnInit {
     this.atualizarProgresso();
   }
 
+  // Atualiza o progresso referente aos checks
   atualizarProgresso() {
     const total = this.refeicoes.length;
     const marcados = this.refeicoes.filter((r) => r.checked).length;
@@ -163,6 +168,7 @@ export class HomePage implements AfterViewInit, OnInit {
     }
   }
 
+  // Salva os Check Localmente
   salvarChecks() {
     localStorage.setItem('refeicoesCheck', JSON.stringify(this.refeicoes));
     localStorage.setItem('refeicoesCheckData', new Date().toDateString());
@@ -174,6 +180,7 @@ export class HomePage implements AfterViewInit, OnInit {
     this.verificarTodasRefeicoesMarcadas();
   }
 
+  // Se todos os checks forem marcados, atualiza a div do brocolíto
   private verificarTodasRefeicoesMarcadas() {
     if (this.refeicoes.length && this.refeicoes.every((r) => r.checked)) {
       // Força a div interativa final

@@ -11,8 +11,11 @@
         class="logo"
       />
 
+      <!-- Form Login -->
       <form class="form" (ngSubmit)="logar()">
         <div class="titulo-login">Entrar</div>
+
+        <!-- Email -->
         <ion-item
           lines="inset"
           class="input-item"
@@ -30,6 +33,7 @@
           ></ion-input>
         </ion-item>
 
+        <!-- Senha -->
         <ion-item
           lines="inset"
           class="input-item"
@@ -47,16 +51,18 @@
           ></ion-input>
         </ion-item>
 
-        <!-- Aqui o "Esqueceu a senha?" logo abaixo do input senha -->
+        <!-- Rota para recuperação de senha -->
         <div class="esqueceu-senha" (click)="irParaEsqueceuSenha()">
           Esqueceu a senha?
         </div>
 
+        <!-- Botão para executar login-->
         <ion-button expand="block" type="button" (click)="logar()">
           Entrar
         </ion-button>
       </form>
 
+      <!-- Rota para cadastro -->
       <div class="cadastro-link">
         Não tem conta? <span (click)="irParaCadastro()">Cadastre-se</span>
       </div>

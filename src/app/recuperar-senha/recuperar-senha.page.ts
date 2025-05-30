@@ -22,6 +22,7 @@ export class RecuperarSenhaPage {
     private navCtrl: NavController
   ) {}
 
+  // Pop-up para erros
   async presentToast(message: string, color: 'success' | 'danger' = 'danger') {
     const toast = await this.toastController.create({
       message,
@@ -32,13 +33,16 @@ export class RecuperarSenhaPage {
     await toast.present();
   }
 
+  // Verifica caracteres do email
   validarEmail(email: string): boolean {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email.toLowerCase());
   }
 
+  // Verificar dados
   validarDados() {
-    // Verificação local antes de fazer requisição
+
+    // Verificaça se preencheu tudo
     if (!this.email || !this.dataNascimento) {
       this.presentToast('Preencha todos os campos.');
       return;
@@ -49,8 +53,10 @@ export class RecuperarSenhaPage {
       return;
     }
 
+    // Verifica email na API
     this.perfilService.getUsuarioPorEmail(this.email).subscribe({
       next: (users) => {
+
         if (!users.length) {
           this.presentToast('E-mail não encontrado.');
           return;
@@ -58,29 +64,34 @@ export class RecuperarSenhaPage {
 
         const usuario = users[0];
 
+        // Valida dados para permitir alterar senha
         if (
           usuario.email?.toLowerCase() === this.email.toLowerCase() &&
           usuario.dataNascimento?.split('T')[0] === this.dataNascimento
         ) {
           this.usuarioId = usuario.id;
-          this.mostrarFormSenha = true;
           this.presentToast('Dados validados. Agora, defina uma nova senha.', 'success');
+          this.mostrarFormSenha = true; // Libera a alteração de senha
         } else {
           this.presentToast('Dados não conferem. Verifique e tente novamente.');
         }
       },
-      error: () => {
+      error: () => { // Erro se não achar
         this.presentToast('Erro ao verificar dados. Tente novamente mais tarde.');
       },
     });
   }
 
+  // Função para alterar senha
   alterarSenha() {
+
+    // Verifica se preencheu os input
     if (!this.novaSenha || !this.confirmarSenha) {
       this.presentToast('Preencha todos os campos de senha.');
       return;
     }
 
+    // Verifica se as senhas são iguais
     if (this.novaSenha !== this.confirmarSenha) {
       this.presentToast('As senhas não coincidem.');
       return;
@@ -88,6 +99,7 @@ export class RecuperarSenhaPage {
 
     const dados = { senha: this.novaSenha };
 
+    // Atualiza senha
     this.perfilService.atualizarUsuario(this.usuarioId, dados).subscribe({
       next: () => {
         this.presentToast('Senha atualizada com sucesso!', 'success');

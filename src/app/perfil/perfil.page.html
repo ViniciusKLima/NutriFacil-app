@@ -1,6 +1,6 @@
 <ion-header class="header-perfil">
   <ion-buttons slot="start">
-    <ion-back-button defaultHref="/tabs/tab4"></ion-back-button>
+    <ion-back-button defaultHref="/nav/config"></ion-back-button>
   </ion-buttons>
   <ion-title>Editar Informações</ion-title>
   <ion-button
@@ -16,7 +16,11 @@
   class="content"
   [class.input-focus]="inputEmFoco"
 >
+
+  <!-- Form Perfil -->
   <form #form="ngForm" (ngSubmit)="salvarPerfil()">
+
+    <!-- Nome -->
     <ion-item>
       <ion-label position="floating">Nome</ion-label>
       <ion-input
@@ -29,10 +33,13 @@
         (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
+
+    <!-- Verifica preenchimento -->
     <ion-text color="warning" *ngIf="nomeInput.invalid && nomeInput.touched">
       <small>Preencha este campo</small>
     </ion-text>
 
+    <!-- Data de nascimento -->
     <ion-item>
       <ion-label position="floating">Data de Nascimento</ion-label>
       <ion-input
@@ -45,6 +52,8 @@
         (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
+
+    <!-- Verifica preenchimento -->
     <ion-text
       color="warning"
       *ngIf="dataNascimentoInput.invalid && dataNascimentoInput.touched"
@@ -52,6 +61,7 @@
       <small>Preencha este campo</small>
     </ion-text>
 
+    <!-- Email -->
     <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input
@@ -65,12 +75,15 @@
         (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
+
+    <!-- Verifica preenchimento -->
     <ion-text color="warning" *ngIf="emailInput.invalid && emailInput.touched">
       <small>Preencha este campo com um email válido</small>
     </ion-text>
 
+    <!-- Meta de água -->
     <ion-item>
-      <ion-label position="floating">Meta de água (ml)</ion-label>
+      <ion-label position="floating">Meta de água por dia (ml)</ion-label>
       <ion-input
         type="number"
         [(ngModel)]="metaAgua"
@@ -82,6 +95,8 @@
         (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
+
+    <!-- Verifica preenchimento -->
     <ion-text
       color="warning"
       *ngIf="metaAguaInput.invalid && metaAguaInput.touched"
@@ -89,6 +104,7 @@
       <small>Preencha este campo</small>
     </ion-text>
 
+    <!-- Peso -->
     <ion-item>
       <ion-label position="floating">Peso (kg)</ion-label>
       <ion-input
@@ -102,10 +118,13 @@
         (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
+
+    <!-- Verifica preenchimento -->
     <ion-text color="warning" *ngIf="pesoInput.invalid && pesoInput.touched">
       <small>Preencha este campo</small>
     </ion-text>
 
+    <!-- Altura -->
     <ion-item>
       <ion-label position="floating">Altura (cm)</ion-label>
       <ion-input
@@ -119,6 +138,8 @@
         (ionBlur)="inputEmFoco = false"
       ></ion-input>
     </ion-item>
+
+    <!-- Verifica preenchimento -->
     <ion-text
       color="warning"
       *ngIf="alturaInput.invalid && alturaInput.touched"
@@ -127,6 +148,7 @@
     </ion-text>
   </form>
 
+  <!-- Div IMC -->
   <div class="imc-resultados" *ngIf="imc !== null">
     <div class="imc-dados">
       <div class="imc-atual">

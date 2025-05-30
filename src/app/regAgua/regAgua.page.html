@@ -7,6 +7,8 @@
           {{ progressoAtual / 1000 | number:'1.0-1' }}L
         </h6>
       </div>
+
+      <!-- Progresso circular -->
       <div class="circulo">
         <div id="progressCircle" class="icon-base"></div>
         <ion-icon name="pint" class="icone-topo"></ion-icon>
@@ -20,8 +22,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Input para adicionar registro -->
   <ion-item>
-    <ion-input mode="ios"
+    <ion-input
+      mode="ios"
       [(ngModel)]="valorAdicionar"
       type="number"
       placeholder="Digite a quantidade (ml)"
@@ -30,20 +34,30 @@
   </ion-item>
 
   <div class="historico-wrapper">
-  <h6 class="header-historico">
-    Histórico de consumo
-    <ion-button fill="clear" style="color: green;" (click)="ativarEdicao()">
-      {{ editando ? 'Concluir' : 'Editar' }}
-    </ion-button>
-  </h6>
-  <div *ngFor="let item of historico; let i = index" class="historico-item">
-    <p><ion-icon name="time-outline"></ion-icon>{{item.hora}}</p>
-    <div class="div-delete-aparece">
-      <p>+{{ item.valor }} ml</p>
-      <ion-button *ngIf="editando" color="danger" fill="clear" size="small" (click)="removerRegistro(i)">
-        <ion-icon name="trash-outline"></ion-icon>
+    <h6 class="header-historico">
+      Histórico de consumo
+
+      <!-- Botão para editar histórico -->
+      <ion-button fill="clear" style="color: green" (click)="ativarEdicao()">
+        {{ editando ? 'Concluir' : 'Editar' }}
       </ion-button>
+    </h6>
+
+    <!-- Div automática dos dados do registro -->
+    <div *ngFor="let item of historico; let i = index" class="historico-item">
+      <p><ion-icon name="time-outline"></ion-icon>{{item.hora}}</p>
+      <div class="div-delete-aparece">
+        <p>+{{ item.valor }} ml</p>
+        <ion-button
+          *ngIf="editando"
+          color="danger"
+          fill="clear"
+          size="small"
+          (click)="removerRegistro(i)"
+        >
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
     </div>
   </div>
-</div>
 </ion-content>

@@ -29,6 +29,7 @@ export class PerfilPage implements OnInit {
     private perfilService: PerfilService
   ) {}
 
+  // Pop-up para avisos
   async presentToast(mensagem: string, cor: 'success' | 'danger' = 'success') {
     const toast = await this.toastController.create({
       message: mensagem,
@@ -39,14 +40,7 @@ export class PerfilPage implements OnInit {
     toast.present();
   }
 
-  ionViewWillEnter() {
-    document.body.classList.add('page-perfil');
-  }
-
-  ionViewWillLeave() {
-    document.body.classList.remove('page-perfil');
-  }
-
+  // Traz os dados da API
   ngOnInit() {
     const email = localStorage.getItem('email');
     if (email) {
@@ -76,6 +70,15 @@ export class PerfilPage implements OnInit {
     }
   }
 
+  ionViewWillEnter() {
+    document.body.classList.add('page-perfil');
+  }
+
+  ionViewWillLeave() {
+    document.body.classList.remove('page-perfil');
+  }
+
+  // Verifica se mudou os valores, para liberar o botão
   houveAlteracao(): boolean {
     return (
       this.nome !== this.perfilOriginal.nome ||
@@ -87,12 +90,14 @@ export class PerfilPage implements OnInit {
     );
   }
 
+  // Requisitos para salvar
   async salvarPerfil() {
     if (!this.usuarioId) {
       await this.presentToast('Erro ao identificar usuário!', 'danger');
       return;
     }
 
+    // Verifica caracteres do email
     const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email.trim());
     if (!emailValido) {
       await this.presentToast('Digite um email válido.', 'danger');
@@ -103,6 +108,8 @@ export class PerfilPage implements OnInit {
       const users = await firstValueFrom(
         this.perfilService.getUsuarioPorEmail(this.email)
       );
+
+      // Verifica se o email já está sendo usado
       if (users.length && users[0].id !== this.usuarioId) {
         await this.presentToast(
           'Já existe um usuário com esse email.',
@@ -115,6 +122,7 @@ export class PerfilPage implements OnInit {
     this.atualizarPerfilBackend();
   }
 
+  // Atualiza os dados
   private atualizarPerfilBackend() {
     const dadosAtualizados = {
       nome: this.nome,
@@ -135,6 +143,7 @@ export class PerfilPage implements OnInit {
       });
   }
 
+  // Atualiza o IMC
   atualizarCalculos() {
     if (this.peso && this.altura) {
       const alturaMetros = this.altura / 100;
