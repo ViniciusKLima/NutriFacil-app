@@ -3,12 +3,12 @@ import ProgressBar from 'progressbar.js';
 import { PerfilService } from '../services/perfil.service';
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss'],
+  selector: 'app-regAgua',
+  templateUrl: 'regAgua.page.html',
+  styleUrls: ['regAgua.page.scss'],
   standalone: false,
 })
-export class Tab2Page implements AfterViewInit {
+export class RegAguaPage implements AfterViewInit {
   meta = 4000;
   progressoAtual = 0;
   valorAdicionar: number | null = null;

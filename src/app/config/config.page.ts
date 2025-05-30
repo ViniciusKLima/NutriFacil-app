@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-tab4',
-  templateUrl: './tab4.page.html',
-  styleUrls: ['./tab4.page.scss'],
+  selector: 'app-config',
+  templateUrl: './config.page.html',
+  styleUrls: ['./config.page.scss'],
   standalone: false,
 })
-export class Tab4Page implements OnInit {
+export class ConfigPage implements OnInit {
   darkModeAtivo = false;
 
   // Variáveis do formulário de perfil

@@ -3,12 +3,12 @@ import { DietaService } from '../services/dieta.service';
 import { PerfilService } from '../services/perfil.service';
 
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss'],
+  selector: 'app-dietas',
+  templateUrl: 'dietas.page.html',
+  styleUrls: ['dietas.page.scss'],
   standalone: false,
 })
-export class Tab3Page implements OnInit {
+export class DietasPage implements OnInit {
   dietas = this.dietaService.getDietas();
   dietaSelecionada = 0;
 

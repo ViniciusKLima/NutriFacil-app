@@ -12,12 +12,12 @@ import { PerfilService } from '../services/perfil.service';
 import { DivInterativaService } from '../services/div-interativa.service';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss'],
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
   standalone: false,
 })
-export class Tab1Page implements AfterViewInit, OnInit {
+export class HomePage implements AfterViewInit, OnInit {
   @ViewChild('progressBar', { static: true }) progressBarElement!: ElementRef;
   private bar: any;
 
